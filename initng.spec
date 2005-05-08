@@ -1,4 +1,5 @@
 Summary:	A next generation init replacement
+Summary(pl):	Zamiennik inita nastêpnej generacji
 Name:		initng
 Version:	0.0.10
 Release:	0.1
@@ -14,11 +15,18 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 %define		_sbindir	/sbin
 
 %description
-Initng is a full replacement of the old and in many ways depricated
+Initng is a full replacement of the old and in many ways deprecated
 SysVinit tool. It is designed with speed in mind, doing as much as
 possible asynchronously. In other words: It will boot your unix-system
 much faster, and give you more control and statistics over your
 system.
+
+%description -l pl
+Initng ca³kowicie zastêpuje stare i w wielu miejscach przestarza³e
+narzêdzie SysVinit. Zosta³ zaprojektowany z my¶l± o szybko¶ci, robi
+równolegle tak wiele jak tylko mo¿liwe. Innymi s³owy: umo¿liwia du¿o
+szybszy start systemu uniksowego oraz zapewnia wiêksz± kontrolê i
+statystyki.
 
 %prep
 %setup -q
