@@ -10,10 +10,15 @@ Source0:	http://jw.dyndns.org/initng/%{name}-%{version}.tar.bz2
 URL:		http://jw.dyndns.org/initng/
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
-%define		_sysconfdir /etc/initng
+%define		_sysconfdir /etc/%{name}
 %define		_sbindir	/sbin
 
 %description
+Initng is a full replacement of the old and in many ways depricated
+SysVinit tool. It is designed with speed in mind, doing as much as
+possible asynchronously. In other words: It will boot your unix-system
+much faster, and give you more control and statistics over your
+system.
 
 %prep
 %setup -q
