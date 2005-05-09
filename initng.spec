@@ -11,7 +11,7 @@ Source0:	http://jw.dyndns.org/initng/%{name}-%{version}.tar.bz2
 URL:		http://jw.dyndns.org/initng/
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
-%define		_sysconfdir /etc/%{name}
+%define		_sysconfdir	/etc/%{name}
 %define		_sbindir	/sbin
 
 %description
@@ -34,11 +34,11 @@ statystyki.
 %build
 %{__make} -C ngcontrol
 	CFLAGS="%{rpmcflags}" \
-	LDFLAGS="%{rpmldflags}" \
+	LDFLAGS="%{rpmldflags}"
 
 %{__make} -C src \
 	CFLAGS="%{rpmcflags}" \
-	LDFLAGS="%{rpmldflags}" \
+	LDFLAGS="%{rpmldflags}"
 
 %install
 rm -rf $RPM_BUILD_ROOT
