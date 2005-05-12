@@ -1,13 +1,13 @@
 Summary:	A next generation init replacement
 Summary(pl):	Zamiennik inita nastêpnej generacji
 Name:		initng
-Version:	0.0.10
+Version:	0.0.15
 Release:	0.1
 Epoch:		0
 License:	GPL v2
 Group:		Base
 Source0:	http://jw.dyndns.org/initng/%{name}-%{version}.tar.bz2
-# Source0-md5:	fd4f633736dbf7c740f2f932131e349b
+# Source0-md5:	822ffda1b85df22cdd2213e5fd3482f2
 URL:		http://jw.dyndns.org/initng/
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -32,7 +32,7 @@ statystyki.
 %setup -q
 
 %build
-%{__make} -C ngcontrol
+%{__make} -C ngcontrol \
 	CFLAGS="%{rpmcflags}" \
 	LDFLAGS="%{rpmldflags}"
 
@@ -60,8 +60,8 @@ fi
 %doc README AUTHORS ChangeLog NEWS TEMPLATE_HEADER TODO doc/databases.txt doc/empty.conf doc/hard.conf
 %dir %{_sysconfdir}
 %dir %{_sysconfdir}/daemon
-%dir %{_sysconfdir}/system
 %dir %{_sysconfdir}/net
+%dir %{_sysconfdir}/system
 
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/*.i
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/daemon/*.i
@@ -71,6 +71,8 @@ fi
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/system.runlevel
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/default.runlevel
 
+%config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/test.xml
+
 %attr(755,root,root) %{_sbindir}/initng
 %attr(755,root,root) %{_sbindir}/ng-update
 %attr(755,root,root) %{_sbindir}/ngc
@@ -79,3 +81,7 @@ fi
 %attr(755,root,root) %{_sbindir}/pidfilehack
 %attr(755,root,root) %{_sbindir}/splash_update
 %attr(755,root,root) %{_sbindir}/system_off
+
+%dir /%{_lib}/initng
+%dir /%{_lib}/initng/parsers
+%attr(755,root,root) /%{_lib}/initng/parsers/*.so.*.*
