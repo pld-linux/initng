@@ -1,0 +1,13 @@
+--- ../doc/Makefile~	2005-06-17 21:39:28.000000000 +0300
++++ ../doc/Makefile	2005-06-30 19:21:59.000000000 +0300
+@@ -2,8 +2,8 @@
+ 
+ all:
+ install:
+-	install -d $(DESTDIR)/usr/man/man8
+-	install initng.8 ngc.8 $(DESTDIR)/usr/man/man8
++	install -d $(DESTDIR)/usr/share/man/man8
++	install initng.8 ngc.8 $(DESTDIR)/usr/share/man/man8
+ 	
+ clean:
+ link-install: install
