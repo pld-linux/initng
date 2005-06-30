@@ -4,7 +4,7 @@ Summary:	A next generation init replacement
 Summary(pl):	Zamiennik inita nastêpnej generacji
 Name:		initng
 Version:	0.1.3
-Release:	0.5
+Release:	0.6
 Epoch:		0
 License:	GPL v2
 Group:		Base
@@ -38,6 +38,11 @@ statystyki.
 %setup -q
 %patch0 -p1
 %patch1 -p1
+
+grep -rl '/lib/initng' . | xargs sed -i -e '
+	s,\$(DESTDIR)/lib,$(DESTDIR)/%{_lib},g
+	s,/lib/initng,/%{_lib}/initng,g
+'
 
 %build
 %{__make} -C ngcontrol \
