@@ -9,6 +9,7 @@ Group:		Base
 Source0:	http://initng.thinktux.net/download/%{name}-%{version}.tar.bz2
 # Source0-md5:	de9cb47d71792a1a9d47029549d0dfcc
 Patch0:		%{name}-FHS.patch
+Requires:	bash
 URL:		http://jw.dyndns.org/initng/
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
