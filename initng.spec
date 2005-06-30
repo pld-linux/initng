@@ -1,3 +1,5 @@
+# TODO
+# - plugins build doesn't pass CFLAGS
 Summary:	A next generation init replacement
 Summary(pl):	Zamiennik inita nastêpnej generacji
 Name:		initng
@@ -9,6 +11,7 @@ Group:		Base
 Source0:	http://initng.thinktux.net/download/%{name}-%{version}.tar.bz2
 # Source0-md5:	de9cb47d71792a1a9d47029549d0dfcc
 Patch0:		%{name}-FHS.patch
+Patch1:		%{name}-lib64.patch
 Requires:	bash
 URL:		http://jw.dyndns.org/initng/
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -34,15 +37,16 @@ statystyki.
 %prep
 %setup -q
 %patch0 -p1
+%patch1 -p1
 
 %build
 %{__make} -C ngcontrol \
-	CFLAGS="%{rpmcflags}" \
-	LDFLAGS="%{rpmldflags}"
+	CFLAGS='%{rpmcflags}' \
+	LDFLAGS='%{rpmldflags}'
 
 %{__make} -C src \
-	CFLAGS="%{rpmcflags}" \
-	LDFLAGS="%{rpmldflags}"
+	CFLAGS='-DINITNG_PLUGIN_DIR=\"/%{_lib}/%{name}\" %{rpmcflags}' \
+	LDFLAGS='%{rpmldflags}'
 
 %install
 rm -rf $RPM_BUILD_ROOT
