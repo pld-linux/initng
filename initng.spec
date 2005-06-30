@@ -48,6 +48,7 @@ statystyki.
 rm -rf $RPM_BUILD_ROOT
 
 %{__make} install \
+	LIBDIR=%{_lib} \
 	DESTDIR=$RPM_BUILD_ROOT
 
 ln -sf libinitng.so.0.0 $RPM_BUILD_ROOT/%{_lib}/libinitng.so.0
@@ -88,8 +89,8 @@ fi
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/test.xml
 
 %attr(755,root,root) /%{_lib}/libinitng.so
-%attr(755,root,root) /%{_lib}/libinitng.so.*
-%attr(755,root,root) /%{_lib}/libinitng.so.*.*
+%attr(755,root,root) /%{_lib}/libinitng.so.0
+%attr(755,root,root) /%{_lib}/libinitng.so.0.0
 %dir %{_libdir}
 %attr(755,root,root) %{_libdir}/libbashlaunch.so.*.*
 %attr(755,root,root) %{_libdir}/libcpout.so.*.*
@@ -103,7 +104,7 @@ fi
 %attr(755,root,root) %{_libdir}/libstdout.so.*.*
 %attr(755,root,root) %{_libdir}/libup.so.*.*
 %attr(755,root,root) %{_libdir}/libxmlconfig.so.*.*
-%dir %{_libdir}
+
 %dir %{_libdir}/scripts
 %dir %{_libdir}/scripts/net
 %{_libdir}/scripts/net/dhclient-wrapper
