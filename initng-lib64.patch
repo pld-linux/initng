@@ -392,3 +392,14 @@
  
  
  clean:
+--- ./plugins/up/Makefile~	2005-06-30 20:20:04.000000000 +0300
++++ ./plugins/up/Makefile	2005-06-30 20:27:10.000000000 +0300
+@@ -18,7 +18,7 @@
+ 	install -d $(DESTDIR)/$(LIBDIR)/initng
+ 	ln -s -f `pwd`/libup.so.0.0 $(DESTDIR)/lib/initng/libup.so.0.0
+ uninstall:
+-	rm -f $(DESTDIR)/lib/initng/libup.so.0.0
++	rm -f $(DESTDIR)/$(LIBDIR)/initng/libup.so.0.0
+ 
+ 
+ clean:
