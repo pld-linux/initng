@@ -12,8 +12,9 @@ Source0:	http://initng.thinktux.net/download/%{name}-%{version}.tar.bz2
 # Source0-md5:	de9cb47d71792a1a9d47029549d0dfcc
 Patch0:		%{name}-FHS.patch
 Patch1:		%{name}-lib64.patch
-Requires:	bash
 URL:		http://jw.dyndns.org/initng/
+BuildRequires:	sed >= 4.0
+Requires:	bash
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_sysconfdir	/etc/%{name}
