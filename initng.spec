@@ -88,6 +88,7 @@ fi
 %dir %{_sysconfdir}/daemon
 %dir %{_sysconfdir}/net
 %dir %{_sysconfdir}/system
+%dir %{_sysconfdir}/conf
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/*.i
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/daemon/*.i
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/system/*.i
