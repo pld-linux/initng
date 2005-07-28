@@ -3,13 +3,13 @@
 Summary:	A next generation init replacement
 Summary(pl):	Zamiennik inita nastêpnej generacji
 Name:		initng
-Version:	0.1.5
-Release:	0.6
+Version:	0.1.6
+Release:	0.1
 Epoch:		0
 License:	GPL v2
 Group:		Base
 Source0:	http://initng.thinktux.net/download/%{name}-%{version}.tar.bz2
-# Source0-md5:	289b97f6a6e221b7e1970003a07f2e21
+# Source0-md5:	06ae9e6453f1cc4e157140fdfa79ff38
 Patch0:		%{name}-PLD.patch
 Patch1:		%{name}-lib64.patch
 URL:		http://jw.dyndns.org/initng/
@@ -42,7 +42,7 @@ statystyki.
 
 # just temp place holder for those scripts
 %package fixes
-Summary:	Various fixes
+Summary:	initng experimental patches and fixes
 Group:		Base
 
 %description fixes
@@ -70,16 +70,13 @@ grep -rl '/lib/initng' . | xargs sed -i -e '
 	CFLAGS='-DINITNG_PLUGIN_DIR=\"/%{_lib}/%{name}\" %{rpmcflags}' \
 	LDFLAGS='%{rpmldflags}'
 
-# bug
-chmod 600 initfiles/net/net.i
-
 %install
 rm -rf $RPM_BUILD_ROOT
 
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
 
-DESTDIR=$RPM_BUILD_ROOT ./gen_system_runlevel.sh
+#DESTDIR=$RPM_BUILD_ROOT ./gen_system_runlevel.sh
 
 # no devel package, so no devel files
 rm -f $RPM_BUILD_ROOT/%{_lib}/libinitng.la
