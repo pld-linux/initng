@@ -14,6 +14,7 @@ Patch0:		%{name}-PLD.patch
 Patch1:		%{name}-lib64.patch
 URL:		http://jw.dyndns.org/initng/
 BuildRequires:	sed >= 4.0
+BuildRequires:	/etc/pld-release
 Requires:	bash
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
