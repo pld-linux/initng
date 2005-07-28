@@ -1,0 +1,11 @@
+--- ./tools/install_service.c~	2005-07-29 00:53:24.000000000 +0300
++++ ./tools/install_service.c	2005-07-29 00:53:26.000000000 +0300
+@@ -49,6 +49,8 @@
+         return ("gentoo");
+     if (is_file("/etc/fedora-release"))
+         return ("fedora");
++	if (is_file("/etc/pld-release"))
++		return ("pld");
+     return (NULL);
+ }
+ 
