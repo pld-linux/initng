@@ -24,7 +24,7 @@
 -    struct utmp utmp;
 -    time_t t;
 +    struct utmpx utmpx;
-+	struct timeval tv;
++    struct timeval tv;
  
      /*
       * this is created by bootmisc, if this isn't there we can't set runlevel.
@@ -52,9 +52,9 @@
 +    memset(&utmpx, 0, sizeof(utmpx));
 +    utmpx.ut_type = RUN_LVL;
 +    utmpx.ut_pid = ('#' << 8) + runlevel + '0';
-+	gettimeofday (&tv, NULL);
-+	utmpx.ut_tv.tv_sec = tv.tv_sec;
-+	utmpx.ut_tv.tv_usec = tv.tv_usec;
++    gettimeofday (&tv, NULL);
++    utmpx.ut_tv.tv_sec = tv.tv_sec;
++    utmpx.ut_tv.tv_usec = tv.tv_usec;
 +    if (pututxline(&utmpx) == NULL)
      {
          F_("pututline failed\n");
