@@ -66,13 +66,7 @@ gentooish. i plan to write new ones for pld using existing rc-scripts.
 %setup -q
 %patch0 -p1
 %patch1 -p1
-%patch2 -p1
-
-exit 0
-grep -rl '/lib/initng' . | xargs sed -i -e '
-	s,\$(DESTDIR)/lib,$(DESTDIR)/%{_lib},g
-	s,/lib/initng,/%{_lib}/initng,g
-'
+#%patch2 -p1
 
 %build
 %configure \
@@ -110,30 +104,25 @@ fi
 %doc doc/databases.txt doc/imanual.txt doc/initng.txt
 %doc doc/empty.conf doc/hard.conf
 %doc doc/gentoo-chart.png doc/initng-chart.png
-
-%config(noreplace) %verify(not md5 mtime size) /etc/initng/plugin/readahead.i
-
 %dir %{_sysconfdir}
+%dir %{_sysconfdir}/conf
 %dir %{_sysconfdir}/daemon
 %dir %{_sysconfdir}/debug
 %dir %{_sysconfdir}/net
 %dir %{_sysconfdir}/system
-%dir %{_sysconfdir}/conf
-
-%attr(755,root,root) /%{_lib}/libinitng.so.*.*.*
+%dir %{_sysconfdir}/plugin
 %dir %{_libdir}
-%attr(755,root,root) %{_libdir}/lib*.so.*.*
-
 %dir %{_libdir}/scripts
 %dir %{_libdir}/scripts/net
-
+%config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/plugin/readahead.i
+%attr(755,root,root) /%{_lib}/libinitng.so.*.*.*
+%attr(755,root,root) %{_libdir}/lib*.so.*.*
 %attr(755,root,root) %{_sbindir}/install_service
 %attr(755,root,root) %{_sbindir}/initng
 %attr(755,root,root) %{_sbindir}/ng-update
 %attr(755,root,root) %{_sbindir}/ngc
 %attr(755,root,root) %{_sbindir}/ngdc
 %attr(755,root,root) %{_sbindir}/system_off
-
 %{_mandir}/man8/initng.8*
 %{_mandir}/man8/ngc.8*
 %{_mandir}/man8/ng-update.8*
