@@ -1,5 +1,5 @@
---- ./plugins/initctl/initng_initctl.c~	2005-07-29 19:24:19.000000000 +0300
-+++ ./plugins/initctl/initng_initctl.c	2005-07-29 19:24:22.000000000 +0300
+--- ./plugins/initctl/initng_initctl.c.orig	2005-07-29 00:30:09.000000000 +0300
++++ ./plugins/initctl/initng_initctl.c	2005-07-29 21:59:20.000000000 +0300
 @@ -32,6 +32,7 @@
  #include <errno.h>
  #include <dirent.h>
@@ -8,36 +8,36 @@
  
  #include "../../src/initng_global.h"
  #include "../../src/process_db.h"
-@@ -43,7 +44,7 @@
- #include "../../src/initng_toolbox.h"
+@@ -44,6 +45,7 @@
  #include "../../src/initng_plugin_hook.h"
  
--#include <utmp.h>
+ #include <utmp.h>
 +#include <utmpx.h>
  #include "initreq.h"
  
  #include "initng_initctl.h"
-@@ -191,15 +192,15 @@
+@@ -191,35 +193,34 @@
  static void makeutmp(int runlevel)
  {
      D_("Making utmp file for runlevel %d\n", runlevel);
 -    struct utmp utmp;
 -    time_t t;
 +    struct utmpx utmpx;
-+    struct timeval tv;
  
      /*
       * this is created by bootmisc, if this isn't there we can't set runlevel.
       */
 -    if (access(UTMP_FILE, F_OK) < 0)
++	/*
 +    if (access(UTMPX_FILE, F_OK) < 0)
      {
 -        F_("/var/run/utmp does not exist, this should be created by bootmisc.i\n");
 +        F_("%s not exist, this should be created by bootmisc.i\n", UTMPX_FILE);
          return;
-     }
+-    }
++    }*/
      /*
-@@ -207,19 +208,20 @@
+        todo, is this a good idea or a bad idea?
         utmpname("/var/run/utmp");
       */
  
@@ -52,9 +52,7 @@
 +    memset(&utmpx, 0, sizeof(utmpx));
 +    utmpx.ut_type = RUN_LVL;
 +    utmpx.ut_pid = ('#' << 8) + runlevel + '0';
-+    gettimeofday (&tv, NULL);
-+    utmpx.ut_tv.tv_sec = tv.tv_sec;
-+    utmpx.ut_tv.tv_usec = tv.tv_usec;
++    gettimeofday (&utmpx.ut_tv, NULL);
 +    if (pututxline(&utmpx) == NULL)
      {
          F_("pututline failed\n");
