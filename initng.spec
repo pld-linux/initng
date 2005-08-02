@@ -93,10 +93,13 @@ rm -rf $RPM_BUILD_ROOT%{_docdir}/%{name}
 rm -rf $RPM_BUILD_ROOT
 
 %post
+/sbin/ldconfig
 if [ "$1" = 1 ]; then
 	echo >&2 "Remember to add init=%{_sbindir}/initng in your grub or lilo config to use initng"
 	echo >&2 "Happy testing."
 fi
+
+%postun	-p /sbin/ldconfig
 
 %files
 %defattr(644,root,root,755)
