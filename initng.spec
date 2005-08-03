@@ -45,22 +45,34 @@ statystyki.
 # just temp place holder for those scripts
 %package fixes
 Summary:	initng experimental patches and fixes
+Summary(pl):	Eksperymentalne ³aty i poprawki do initng
 Group:		Base
 Requires:	%{name} = %{epoch}:%{version}-%{release}
 
 %description fixes
-contains fixes directory from initng distribution, which appear to
-replace few system files. you should probably install this package
+Contains fixes directory from initng distribution, which appear to
+replace few system files. You should probably install this package
 with --replacefiles rpm option.
+
+%description fixes -l pl
+Ten pakiet zawiera katalog fixes z dystrybucji initng, który wydaje
+siê zastêpowaæ niektóre pliki systemowe. Prawdopodobnie nale¿y
+instalowaæ ten pakiet z opcj± rpm-a --replacefiles.
 
 %package initscripts
 Summary:	Bundled initscripts
+Summary(pl):	Do³±czone skrypty inicjalizuj±ce
 Group:		Base
 Requires:	%{name} = %{epoch}:%{version}-%{release}
 
 %description initscripts
-this package contains the bundled iniscripts. these are very
-gentooish. i plan to write new ones for pld using existing rc-scripts.
+This package contains the bundled iniscripts. These are very
+gentooish. I plan to write new ones for PLD using existing rc-scripts.
+
+%description initscripts -l pl
+Ten pakiet zawiera do³±czone skrypty inicjalizuj±ce. S± bardzo
+gentoowskie. Planowane jest napisanie nowych dlaPLD przy u¿yciu
+istniej±cych rc-scripts.
 
 %prep
 %setup -q
