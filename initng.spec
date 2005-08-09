@@ -3,13 +3,13 @@
 Summary:	A next generation init replacement
 Summary(pl):	Zamiennik inita nastêpnej generacji
 Name:		initng
-Version:	0.1.6
-Release:	0.5
+Version:	0.1.7
+Release:	0.1
 Epoch:		0
 License:	GPL v2
 Group:		Base
 Source0:	http://initng.thinktux.net/download/%{name}-%{version}.tar.bz2
-# Source0-md5:	06ae9e6453f1cc4e157140fdfa79ff38
+# Source0-md5:	904d8763c65838a222ca4129b3cf2394
 Patch0:		%{name}-PLD.patch
 Patch1:		%{name}-lib64.patch
 Patch2:		%{name}-utmpx.patch
@@ -87,7 +87,7 @@ istniej±cych rc-scripts.
 
 %{__make} \
 	CFLAGS='-DINITNG_PLUGIN_DIR=\"/%{_lib}/%{name}\" %{rpmcflags}' \
-	LDFLAGS='%{rpmldflags}'
+	LDFLAGS="%{rpmldflags}"
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -141,6 +141,8 @@ fi
 %{_mandir}/man8/initng.8*
 %{_mandir}/man8/ngc.8*
 %{_mandir}/man8/ng-update.8*
+%{_mandir}/man8/gen_system_runlevel.sh.8*
+%{_mandir}/man8/ngdc.8*
 
 %files fixes
 %defattr(644,root,root,755)
@@ -148,6 +150,7 @@ fi
 %config(noreplace) %verify(not md5 mtime size) /etc/hotplug/net.agent
 %attr(755,root,root) /usr/sbin/ifplugd.action
 %attr(755,root,root) /usr/sbin/wpa_cli.action
+/etc/ifplugd/action.d/ngcupdown
 
 %files initscripts
 %defattr(644,root,root,755)
