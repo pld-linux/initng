@@ -1,11 +1,11 @@
 --- ./tools/install_service.c~	2005-08-09 16:23:11.000000000 +0300
-+++ ./tools/install_service.c	2005-08-09 16:23:56.000000000 +0300
-@@ -49,6 +49,8 @@
++++ ./tools/install_service.c	2005-08-13 10:12:09.000000000 +0200
+@@ -62,6 +62,8 @@
+         return ("debian");
+     if (is_file("/etc/gentoo-release"))
          return ("gentoo");
-     if (is_file("/etc/fedora-release"))
-         return ("fedora");
 +    if (is_file("/etc/pld-release"))
 +        return ("pld");
-     return ("unknown");
- }
- 
+     if (is_file("/etc/fedora-release"))
+         return ("fedora");
+     D_("Probe failed\n");

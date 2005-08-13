@@ -3,13 +3,13 @@
 Summary:	A next generation init replacement
 Summary(pl):	Zamiennik inita nastêpnej generacji
 Name:		initng
-Version:	0.1.7
+Version:	0.1.8
 Release:	0.1
 Epoch:		0
 License:	GPL v2
 Group:		Base
 Source0:	http://initng.thinktux.net/download/%{name}-%{version}.tar.bz2
-# Source0-md5:	904d8763c65838a222ca4129b3cf2394
+# Source0-md5:	c4a18ebc8d31875abffac3b5552c242e
 Patch0:		%{name}-PLD.patch
 Patch1:		%{name}-lib64.patch
 Patch2:		%{name}-utmpx.patch
@@ -138,11 +138,14 @@ fi
 %attr(755,root,root) %{_sbindir}/ngc
 %attr(755,root,root) %{_sbindir}/ngdc
 %attr(755,root,root) %{_sbindir}/system_off
+%attr(755,root,root) /usr/sbin/ngcupdown
 %{_mandir}/man8/initng.8*
 %{_mandir}/man8/ngc.8*
 %{_mandir}/man8/ng-update.8*
-%{_mandir}/man8/gen_system_runlevel.sh.8*
+%{_mandir}/man8/gen_system_runlevel.8*
 %{_mandir}/man8/ngdc.8*
+%{_mandir}/man8/install_service.8*
+%{_mandir}/man8/system_off.8*
 
 %files fixes
 %defattr(644,root,root,755)
@@ -154,15 +157,17 @@ fi
 
 %files initscripts
 %defattr(644,root,root,755)
+%dir %{_sysconfdir}/daemon/bluetooth
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/*.i
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/daemon/*.i
+%config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/daemon/bluetooth/*.i
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/debug/*.i
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/system/*.i
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/net/*.i
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/*.runlevel
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/conf/test.xml
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/xmltest.xml
-%attr(755,root,root) %{_sbindir}/gen_system_runlevel.sh
+%attr(755,root,root) %{_sbindir}/gen_system_runlevel
 %attr(755,root,root) %{_libdir}/scripts/net/dhclient-wrapper
 %attr(755,root,root) %{_libdir}/scripts/net/dhcp
 %attr(755,root,root) %{_libdir}/scripts/net/dhcpcd-backgrounder

@@ -1,9 +1,9 @@
 --- ./src/initng.h~	2005-06-18 00:55:42.000000000 +0300
-+++ ./src/initng.h	2005-06-30 20:15:30.000000000 +0300
-@@ -54,7 +54,9 @@
- #define INITNG_ROOT     "/etc/initng"
- #define CONTROL_PATH    "/etc/initng"
++++ ./src/initng.h	2005-08-13 10:13:40.000000000 +0200
+@@ -33,7 +33,9 @@
  
+ /* specify paths */
+ #define INITNG_ROOT     "/etc/initng"
 +#ifndef INITNG_PLUGIN_DIR
  #define INITNG_PLUGIN_DIR "/lib/initng"
 +#endif
