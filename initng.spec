@@ -1,18 +1,15 @@
-# TODO
-# - plugins build doesn't pass CFLAGS
 Summary:	A next generation init replacement
 Summary(pl):	Zamiennik inita nastêpnej generacji
 Name:		initng
-Version:	0.1.8
+Version:	0.1.9
 Release:	0.1
 Epoch:		0
 License:	GPL v2
 Group:		Base
 Source0:	http://initng.thinktux.net/download/%{name}-%{version}.tar.bz2
-# Source0-md5:	c4a18ebc8d31875abffac3b5552c242e
-Patch0:		%{name}-PLD.patch
-Patch1:		%{name}-lib64.patch
-Patch2:		%{name}-utmpx.patch
+# Source0-md5:	b8c2117da50a1417deb3f3d4a3a1ab7f
+Patch0:		%{name}-lib64.patch
+#Patch2:		%{name}-utmpx.patch
 URL:		http://jw.dyndns.org/initng/
 BuildRequires:	sed >= 4.0
 BuildRequires:	/etc/pld-release
@@ -77,11 +74,11 @@ istniej±cych rc-scripts.
 %prep
 %setup -q
 %patch0 -p1
-%patch1 -p1
 #%patch2 -p1
 
 %build
 %configure \
+	--%{?debug:en}%{!?debug:dis}able-debug \
 	--sysconfdir=/etc \
 	--libdir=/%{_lib} \
 
@@ -120,18 +117,18 @@ fi
 %doc doc/empty.conf doc/hard.conf
 %doc doc/gentoo-chart.png doc/initng-chart.png
 %dir %{_sysconfdir}
-%dir %{_sysconfdir}/conf
+#%dir %{_sysconfdir}/conf
 %dir %{_sysconfdir}/daemon
 %dir %{_sysconfdir}/debug
 %dir %{_sysconfdir}/net
 %dir %{_sysconfdir}/system
-%dir %{_sysconfdir}/plugin
+#%dir %{_sysconfdir}/plugin
 %dir %{_libdir}
 %dir %{_libdir}/scripts
 %dir %{_libdir}/scripts/net
-%config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/plugin/readahead.i
+#%config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/plugin/readahead.i
 %attr(755,root,root) /%{_lib}/libinitng.so.*.*.*
-%attr(755,root,root) %{_libdir}/lib*.so.*.*
+%attr(755,root,root) %{_libdir}/lib*.so
 %attr(755,root,root) %{_sbindir}/install_service
 %attr(755,root,root) %{_sbindir}/initng
 %attr(755,root,root) %{_sbindir}/ng-update
@@ -165,9 +162,11 @@ fi
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/system/*.i
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/net/*.i
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/*.runlevel
-%config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/conf/test.xml
-%config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/xmltest.xml
+#%config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/conf/test.xml
+#%config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/xmltest.xml
 %attr(755,root,root) %{_sbindir}/gen_system_runlevel
+%attr(755,root,root) %{_sbindir}/shutdown_script
+%attr(755,root,root) %{_sbindir}/test_pidfile
 %attr(755,root,root) %{_libdir}/scripts/net/dhclient-wrapper
 %attr(755,root,root) %{_libdir}/scripts/net/dhcp
 %attr(755,root,root) %{_libdir}/scripts/net/dhcpcd-backgrounder
