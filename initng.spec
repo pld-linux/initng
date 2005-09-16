@@ -1,13 +1,13 @@
 Summary:	A next generation init replacement
 Summary(pl):	Zamiennik inita nastêpnej generacji
 Name:		initng
-Version:	0.1.9
+Version:	0.2.0
 Release:	0.1
 Epoch:		0
 License:	GPL v2
 Group:		Base
 Source0:	http://initng.thinktux.net/download/%{name}-%{version}.tar.bz2
-# Source0-md5:	b8c2117da50a1417deb3f3d4a3a1ab7f
+# Source0-md5:	2746d012adfe20a7d0c1c40b93d99774
 Patch0:		%{name}-lib64.patch
 #Patch2:		%{name}-utmpx.patch
 URL:		http://jw.dyndns.org/initng/
@@ -135,7 +135,7 @@ fi
 %attr(755,root,root) %{_sbindir}/ngc
 %attr(755,root,root) %{_sbindir}/ngdc
 %attr(755,root,root) %{_sbindir}/system_off
-%attr(755,root,root) /usr/sbin/ngcupdown
+%attr(755,root,root) %{_sbindir}/ngcupdown
 %{_mandir}/man8/initng.8*
 %{_mandir}/man8/ngc.8*
 %{_mandir}/man8/ng-update.8*
@@ -148,8 +148,8 @@ fi
 %defattr(644,root,root,755)
 %config(noreplace) %verify(not md5 mtime size) /etc/pcmcia/network
 %config(noreplace) %verify(not md5 mtime size) /etc/hotplug/net.agent
-%attr(755,root,root) /usr/sbin/ifplugd.action
-%attr(755,root,root) /usr/sbin/wpa_cli.action
+%attr(755,root,root) %{_sbindir}/ifplugd.action
+%attr(755,root,root) %{_sbindir}/wpa_cli.action
 /etc/ifplugd/action.d/ngcupdown
 
 %files initscripts
@@ -166,7 +166,7 @@ fi
 #%config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/xmltest.xml
 %attr(755,root,root) %{_sbindir}/gen_system_runlevel
 %attr(755,root,root) %{_sbindir}/shutdown_script
-%attr(755,root,root) %{_sbindir}/test_pidfile
+#%attr(755,root,root) %{_sbindir}/test_pidfile
 %attr(755,root,root) %{_libdir}/scripts/net/dhclient-wrapper
 %attr(755,root,root) %{_libdir}/scripts/net/dhcp
 %attr(755,root,root) %{_libdir}/scripts/net/dhcpcd-backgrounder
