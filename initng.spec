@@ -1,13 +1,13 @@
 Summary:	A next generation init replacement
 Summary(pl):	Zamiennik inita nastêpnej generacji
 Name:		initng
-Version:	0.2.0
+Version:	0.2.1
 Release:	0.1
 Epoch:		0
 License:	GPL v2
 Group:		Base
 Source0:	http://initng.thinktux.net/download/%{name}-%{version}.tar.bz2
-# Source0-md5:	2746d012adfe20a7d0c1c40b93d99774
+# Source0-md5:	c27cd7844b511956d639fef235818f7a
 Patch0:		%{name}-lib64.patch
 #Patch2:		%{name}-utmpx.patch
 URL:		http://jw.dyndns.org/initng/
