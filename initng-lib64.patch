@@ -1,12 +1,12 @@
---- ./src/initng.h~	2005-06-18 00:55:42.000000000 +0300
-+++ ./src/initng.h	2005-08-13 10:13:40.000000000 +0200
-@@ -33,7 +33,9 @@
+--- ./src/initng.h~	2005-09-26 18:37:36.000000000 +0300
++++ ./src/initng.h	2005-09-26 18:38:09.000000000 +0300
+@@ -39,7 +39,9 @@
  
  /* specify paths */
  #define INITNG_ROOT     "/etc/initng"
 +#ifndef INITNG_PLUGIN_DIR
  #define INITNG_PLUGIN_DIR "/lib/initng"
 +#endif
- #define STD_OUT         "/dev/vc/12"
- #define STD_OUT2        "/dev/tty12"
  #define STD_ERR         "/dev/console"
+ #define INITNG_EXT      ".i"
+ 
