@@ -2,27 +2,22 @@ Summary:	A next generation init replacement
 Summary(pl):	Zamiennik inita nastêpnej generacji
 Name:		initng
 Version:	0.3.3
-Release:	0.1
+Release:	0.2
 License:	GPL v2
 Group:		Base
 Source0:	http://initng.thinktux.net/download/v0.3/%{name}-%{version}.tar.bz2
 # Source0-md5:	f532ff517216a43d994a07d658b68ed0
 Patch0:		%{name}-lib64.patch
-#Patch2:		%{name}-utmpx.patch
+#Patch2:	%{name}-utmpx.patch
 URL:		http://jw.dyndns.org/initng/
 BuildRequires:	sed >= 4.0
 BuildRequires:	/etc/pld-release
 Requires:	bash
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
-%define		_prefix			/
+%define		_exec_prefix	/
 %define		_sysconfdir		/etc/%{name}
 %define		_libdir			/%{_lib}/%{name}
-%define		_sbindir		/sbin
-# for broken initng ac files prefix needs to be / and these redefined
-%define		_datadir		/usr/share
-%define		_docdir			%{_datadir}/doc
-%define		_mandir			%{_datadir}/man
 
 %description
 Initng is a full replacement of the old and in many ways deprecated
@@ -135,7 +130,7 @@ fi
 %attr(755,root,root) %{_sbindir}/ngc
 %attr(755,root,root) %{_sbindir}/ngdc
 %attr(755,root,root) %{_sbindir}/system_off
-%attr(755,root,root) %{_sbindir}/ngcupdown
+%attr(755,root,root) %{_prefix}%{_sbindir}/ngcupdown
 %{_mandir}/man8/initng.8*
 %{_mandir}/man8/ngc.8*
 %{_mandir}/man8/ng-update.8*
@@ -148,8 +143,8 @@ fi
 %defattr(644,root,root,755)
 %config(noreplace) %verify(not md5 mtime size) /etc/pcmcia/network
 %config(noreplace) %verify(not md5 mtime size) /etc/hotplug/net.agent
-%attr(755,root,root) %{_sbindir}/ifplugd.action
-%attr(755,root,root) %{_sbindir}/wpa_cli.action
+%attr(755,root,root) %{_prefix}%{_sbindir}/ifplugd.action
+%attr(755,root,root) %{_prefix}%{_sbindir}/wpa_cli.action
 /etc/ifplugd/action.d/ngcupdown
 
 %files initscripts
