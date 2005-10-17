@@ -1,0 +1,12 @@
+--- ././plugins/reload/initng_reload.c~	2005-10-12 23:34:46.000000000 +0300
++++ ././plugins/reload/initng_reload.c	2005-10-17 12:59:06.000000000 +0300
+@@ -36,7 +36,9 @@
+ 
+ #include "initng_reload.h"
+ 
++#ifndef SAVE_FILE
+ #define SAVE_FILE "/tmp/active_db_save.v7"
++#endif
+ 
+ s_command FAST_RELOAD = { 'c', "hot_reload", TRUE_OR_FALSE_COMMAND, NO_OPT,
+     {(void *) &cmd_fast_reload},
