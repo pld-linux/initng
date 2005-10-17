@@ -2,12 +2,13 @@ Summary:	A next generation init replacement
 Summary(pl):	Zamiennik inita nastêpnej generacji
 Name:		initng
 Version:	0.3.3
-Release:	0.2
+Release:	0.3
 License:	GPL v2
 Group:		Base
 Source0:	http://initng.thinktux.net/download/v0.3/%{name}-%{version}.tar.bz2
 # Source0-md5:	f532ff517216a43d994a07d658b68ed0
 Patch0:		%{name}-lib64.patch
+Patch1:		%{name}-savefile.patch
 #Patch2:	%{name}-utmpx.patch
 URL:		http://jw.dyndns.org/initng/
 BuildRequires:	sed >= 4.0
@@ -68,7 +69,7 @@ istniej±cych rc-scripts.
 %prep
 %setup -q
 %patch0 -p1
-#%patch2 -p1
+%patch1 -p1
 
 %build
 %configure \
@@ -77,8 +78,8 @@ istniej±cych rc-scripts.
 	--libdir=/%{_lib} \
 
 %{__make} \
-	CFLAGS='-DINITNG_PLUGIN_DIR=\"/%{_lib}/%{name}\" %{rpmcflags}' \
-	LDFLAGS="%{rpmldflags}"
+	CPPFLAGS='-DINITNG_PLUGIN_DIR=\"/%{_lib}/%{name}\" -DSAVE_FILE=\"/var/run/initng_db_save.v7\"'
+
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -101,6 +102,8 @@ if [ "$1" = 1 ]; then
 	echo >&2 "Remember to add init=%{_sbindir}/initng in your grub or lilo config to use initng"
 	echo >&2 "Happy testing."
 fi
+
+/sbin/ngc -c > /dev/null || :
 
 %postun	-p /sbin/ldconfig
 
