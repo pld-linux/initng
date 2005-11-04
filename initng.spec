@@ -3,8 +3,8 @@ Summary(pl):	Zamiennik inita nastêpnej generacji
 Name:		initng
 Version:	0.3.5
 #define	_snap 20051022
-%define	_rel 0.1
-Release:	0.%{?_snap:%{_snap}.}%{_rel}
+%define	_rel 0.2
+Release:	%{?_snap:0.%{_snap}.}%{_rel}
 License:	GPL v2
 Group:		Base
 #Source0:	/home/builder/svn/initng-20051022.tar.bz2
@@ -92,6 +92,7 @@ istniej±cych rc-scripts.
 	--%{?debug:en}%{!?debug:dis}able-debug \
 	--sysconfdir=/etc \
 	--libdir=/%{_lib} \
+	--disable-install-init
 
 #	--with-splash \
 #	--with-splashy \
@@ -110,6 +111,9 @@ rm -f $RPM_BUILD_ROOT/%{_lib}/libinitng.la
 rm -f $RPM_BUILD_ROOT%{_libdir}/*.la
 # duplicated
 rm -rf $RPM_BUILD_ROOT%{_docdir}/%{name}
+
+# --disable-install-init doesn't work. do it hard way
+rm -rf $RPM_BUILD_ROOT/sbin/killall5
 
 %clean
 rm -rf $RPM_BUILD_ROOT
