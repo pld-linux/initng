@@ -15,7 +15,9 @@ Patch1:		%{name}-savefile.patch
 Patch2:	%{name}-utmpx.patch
 URL:		http://jw.dyndns.org/initng/
 %if 0%{?_snap:1}
+BuildRequires:	autoconf
 BuildRequires:	automake
+BuildRequires:	libtool
 %endif
 BuildRequires:	sed >= 4.0
 BuildRequires:	/etc/pld-release
@@ -80,7 +82,11 @@ istniej±cych rc-scripts.
 
 %build
 %if 0%{?_snap:1}
-./autogen.sh
+%{__libtoolize}
+%{__aclocal}
+%{__autoconf}
+%{__autoheader}
+%{__automake}
 %endif
 %configure \
 	--%{?debug:en}%{!?debug:dis}able-debug \
@@ -92,7 +98,6 @@ istniej±cych rc-scripts.
 
 %{__make} \
 	CPPFLAGS='-DINITNG_PLUGIN_DIR=\"/%{_lib}/%{name}\" -DSAVE_FILE=\"/var/run/initng_db_save.v8\"'
-
 
 %install
 rm -rf $RPM_BUILD_ROOT
