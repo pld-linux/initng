@@ -1,20 +1,20 @@
 Summary:	A next generation init replacement
 Summary(pl):	Zamiennik inita nastêpnej generacji
 Name:		initng
-Version:	0.3.3
-%define	_snap 20051022
-%define	_rel 0.3
+Version:	0.3.5
+#define	_snap 20051022
+%define	_rel 0.1
 Release:	0.%{?_snap:%{_snap}.}%{_rel}
 License:	GPL v2
 Group:		Base
-#Source0:	http://initng.thinktux.net/download/v0.3/%{name}-%{version}.tar.bz2
-Source0:	/home/builder/svn/initng-20051022.tar.bz2
-# Source0-md5:	584c97be4517d3ee6b9ea14225f0ba20
+#Source0:	/home/builder/svn/initng-20051022.tar.bz2
+Source0:	http://initng.thinktux.net/download/v0.3/%{name}-%{version}.tar.bz2
+# Source0-md5:	1c8c7655cadbb7235a9b1aa55c57fded
 Patch0:		%{name}-lib64.patch
 Patch1:		%{name}-savefile.patch
 Patch2:	%{name}-utmpx.patch
 URL:		http://jw.dyndns.org/initng/
-%if 0%{_snap}
+%if 0%{?_snap:1}
 BuildRequires:	automake
 %endif
 BuildRequires:	sed >= 4.0
@@ -79,7 +79,7 @@ istniej±cych rc-scripts.
 %patch2 -p1
 
 %build
-%if 0%{_snap}
+%if 0%{?_snap:1}
 ./autogen.sh
 %endif
 %configure \
@@ -91,7 +91,7 @@ istniej±cych rc-scripts.
 #	--with-splashy \
 
 %{__make} \
-	CPPFLAGS='-DINITNG_PLUGIN_DIR=\"/%{_lib}/%{name}\" -DSAVE_FILE=\"/var/run/initng_db_save.v7\"'
+	CPPFLAGS='-DINITNG_PLUGIN_DIR=\"/%{_lib}/%{name}\" -DSAVE_FILE=\"/var/run/initng_db_save.v8\"'
 
 
 %install
