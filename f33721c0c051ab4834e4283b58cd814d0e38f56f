@@ -1,0 +1,1 @@
+- make Sparky-PI happy, run autotools in .spec instead of executing ./autogen.sh
