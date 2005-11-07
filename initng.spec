@@ -1,15 +1,15 @@
 Summary:	A next generation init replacement
 Summary(pl):	Zamiennik inita nastêpnej generacji
 Name:		initng
-Version:	0.3.5
+Version:	0.4.0
 #define	_snap 20051022
-%define	_rel 0.2
+%define	_rel 0.1
 Release:	%{?_snap:0.%{_snap}.}%{_rel}
 License:	GPL v2
 Group:		Base
 #Source0:	/home/builder/svn/initng-20051022.tar.bz2
-Source0:	http://initng.thinktux.net/download/v0.3/%{name}-%{version}.tar.bz2
-# Source0-md5:	1c8c7655cadbb7235a9b1aa55c57fded
+Source0:	http://initng.thinktux.net/download/v0.4/%{name}-%{version}.tar.bz2
+# Source0-md5:	4e187937a5754673ade9509d9105819c
 Patch0:		%{name}-lib64.patch
 Patch1:		%{name}-savefile.patch
 Patch2:	%{name}-utmpx.patch
@@ -111,9 +111,6 @@ rm -f $RPM_BUILD_ROOT/%{_lib}/libinitng.la
 rm -f $RPM_BUILD_ROOT%{_libdir}/*.la
 # duplicated
 rm -rf $RPM_BUILD_ROOT%{_docdir}/%{name}
-
-# --disable-install-init doesn't work. do it hard way
-rm -rf $RPM_BUILD_ROOT/sbin/killall5
 
 %clean
 rm -rf $RPM_BUILD_ROOT
