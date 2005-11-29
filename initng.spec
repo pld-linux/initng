@@ -1,7 +1,7 @@
 Summary:	A next generation init replacement
 Summary(pl):	Zamiennik inita nastêpnej generacji
 Name:		initng
-Version:	0.4.4
+Version:	0.4.6
 #define	_snap 20051022
 %define	_rel 0.1
 Release:	%{?_snap:0.%{_snap}.}%{_rel}
@@ -9,7 +9,7 @@ License:	GPL v2
 Group:		Base
 #Source0:	/home/builder/svn/initng-20051022.tar.bz2
 Source0:	http://initng.thinktux.net/download/v0.4/%{name}-%{version}.tar.bz2
-# Source0-md5:	9db94c2e5a67500d8c42884ccb55a5f8
+# Source0-md5:	f6197f5e9cda7f2af2fbef120827953e
 Patch0:		%{name}-lib64.patch
 Patch1:		%{name}-savefile.patch
 Patch2:	%{name}-utmpx.patch
