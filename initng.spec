@@ -3,7 +3,7 @@ Summary(pl):	Zamiennik inita nastêpnej generacji
 Name:		initng
 Version:	0.4.7
 #define	_snap 20051022
-%define	_rel 0.1
+%define	_rel 0.2
 Release:	%{?_snap:0.%{_snap}.}%{_rel}
 License:	GPL v2
 Group:		Base
@@ -102,6 +102,10 @@ rm -rf $RPM_BUILD_ROOT
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
 
+# install test_parser program, which will help you check your .i files
+# validity
+libtool --mode=install cp devtool/test_parser $RPM_BUILD_ROOT%{_sbindir}/%{name}-test_parser
+
 # no devel package, so no devel files
 rm -f $RPM_BUILD_ROOT/%{_lib}/libinitng.la
 rm -f $RPM_BUILD_ROOT%{_libdir}/*.la
@@ -144,6 +148,7 @@ fi
 %attr(755,root,root) %{_sbindir}/install_service
 %attr(755,root,root) %{_sbindir}/initng
 %attr(755,root,root) %{_sbindir}/initng-segfault
+%attr(755,root,root) %{_sbindir}/initng-test_parser
 %attr(755,root,root) %{_sbindir}/ng-update
 %attr(755,root,root) %{_sbindir}/ngc
 %attr(755,root,root) %{_sbindir}/ngdc
