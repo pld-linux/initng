@@ -172,6 +172,7 @@ fi
 
 %files initscripts
 %defattr(644,root,root,755)
+%attr(755,root,root) %{_sbindir}/killalli5
 %dir %{_sysconfdir}/daemon/bluetooth
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/*.i
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/daemon/*.i
