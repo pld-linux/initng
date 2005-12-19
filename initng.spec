@@ -1,7 +1,7 @@
 Summary:	A next generation init replacement
 Summary(pl):	Zamiennik inita nastêpnej generacji
 Name:		initng
-Version:	0.4.7
+Version:	0.4.8
 #define	_snap 20051022
 %define	_rel 0.2
 Release:	%{?_snap:0.%{_snap}.}%{_rel}
@@ -9,16 +9,15 @@ License:	GPL v2
 Group:		Base
 #Source0:	/home/builder/svn/initng-20051022.tar.bz2
 Source0:	http://initng.thinktux.net/download/v0.4/%{name}-%{version}.tar.bz2
-# Source0-md5:	1568576fba441b87eeaeb5cee4b911ef
-Patch0:		%{name}-lib64.patch
-Patch1:		%{name}-savefile.patch
-Patch2:	%{name}-utmpx.patch
+# Source0-md5:	004ebe3504defa9fa2486d35e4900c11
+Patch0:		%{name}-savefile.patch
+Patch1:		%{name}-utmpx.patch
 URL:		http://jw.dyndns.org/initng/
+BuildRequires:	/etc/pld-release
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	libtool
 BuildRequires:	sed >= 4.0
-BuildRequires:	/etc/pld-release
 Requires:	bash
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -76,7 +75,6 @@ istniej±cych rc-scripts.
 %setup -q %{?_snap:-n %{name}}
 %patch0 -p1
 %patch1 -p1
-%patch2 -p1
 
 %build
 %{__libtoolize}
