@@ -13,7 +13,7 @@ Source0:	http://initng.thinktux.net/download/v0.5/%{name}-%{version}.tar.bz2
 Patch0:		%{name}-savefile.patch
 Patch1:		%{name}-utmpx.patch
 URL:		http://jw.dyndns.org/initng/
-BuildRequires:	/etc/pld-release
+BuildRequires:	issue
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	libtool
