@@ -1,15 +1,15 @@
 Summary:	A next generation init replacement
 Summary(pl):	Zamiennik inita nastêpnej generacji
 Name:		initng
-Version:	0.4.8
+Version:	0.5.0
 #define	_snap 20051022
-%define	_rel 0.2
+%define	_rel 0.1
 Release:	%{?_snap:0.%{_snap}.}%{_rel}
 License:	GPL v2
 Group:		Base
 #Source0:	/home/builder/svn/initng-20051022.tar.bz2
-Source0:	http://initng.thinktux.net/download/v0.4/%{name}-%{version}.tar.bz2
-# Source0-md5:	004ebe3504defa9fa2486d35e4900c11
+Source0:	http://initng.thinktux.net/download/v0.5/%{name}-%{version}.tar.bz2
+# Source0-md5:	f32b927079e268dc386af59af2dafe14
 Patch0:		%{name}-savefile.patch
 Patch1:		%{name}-utmpx.patch
 URL:		http://jw.dyndns.org/initng/
@@ -179,11 +179,9 @@ fi
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/system/*.i
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/net/*.i
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/*.runlevel
-#%config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/conf/test.xml
-#%config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/xmltest.xml
+%config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/service_alias
 %attr(755,root,root) %{_sbindir}/gen_system_runlevel
 %attr(755,root,root) %{_sbindir}/shutdown_script
-#%attr(755,root,root) %{_sbindir}/test_pidfile
 %attr(755,root,root) %{_libdir}/scripts/net/dhclient-wrapper
 %attr(755,root,root) %{_libdir}/scripts/net/dhcp
 %attr(755,root,root) %{_libdir}/scripts/net/dhcpcd-backgrounder

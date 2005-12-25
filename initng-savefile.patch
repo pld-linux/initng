@@ -1,13 +1,13 @@
 --- ./plugins/reload/initng_reload.c~	2005-11-29 22:08:20.000000000 +0200
 +++ ./plugins/reload/initng_reload.c	2005-11-29 22:09:04.000000000 +0200
-@@ -38,8 +38,8 @@
+@@ -41,8 +41,8 @@
  
  #include "initng_reload.h"
  
--#define SAVE_FILE "/var/initng_db_backup.v11"
--#define SAVE_FILE_FAKE "/var/initng_db_backup.v11"
-+#define SAVE_FILE "/var/run/initng_db_backup.v11"
-+#define SAVE_FILE_FAKE "/var/run/initng_db_backup.v11"
+-#define SAVE_FILE      VARDIR "/initng_db_backup.v12"
+-#define SAVE_FILE_FAKE VARDIR "/initng_db_backup_fake.v12"
++#define SAVE_FILE      "/var/run/initng_db_backup.v12"
++#define SAVE_FILE_FAKE "/var/run/initng_db_backup_fake.v12"
  
  s_command FAST_RELOAD = { 'c', "hot_reload", VOID_COMMAND, NO_OPT,
      {(void *) &cmd_fast_reload},
