@@ -1,7 +1,7 @@
 Summary:	A next generation init replacement
 Summary(pl):	Zamiennik inita nastêpnej generacji
 Name:		initng
-Version:	0.5.0
+Version:	0.5.1
 #define	_snap 20051022
 %define	_rel 0.1
 Release:	%{?_snap:0.%{_snap}.}%{_rel}
@@ -9,7 +9,7 @@ License:	GPL v2
 Group:		Base
 #Source0:	/home/builder/svn/initng-20051022.tar.bz2
 Source0:	http://initng.thinktux.net/download/v0.5/%{name}-%{version}.tar.bz2
-# Source0-md5:	f32b927079e268dc386af59af2dafe14
+# Source0-md5:	865f0316705c9cfeaafd339c70f554ad
 Patch0:		%{name}-savefile.patch
 Patch1:		%{name}-utmpx.patch
 URL:		http://jw.dyndns.org/initng/
@@ -127,8 +127,7 @@ fi
 %files
 %defattr(644,root,root,755)
 %doc README AUTHORS ChangeLog NEWS TEMPLATE_HEADER TODO CODING_STANDARDS
-%doc doc/databases.txt doc/imanual.txt doc/initng.txt
-%doc doc/empty.conf doc/hard.conf
+%doc doc/imanual.txt doc/initng.txt
 %doc doc/gentoo-chart.png doc/initng-chart.png
 %dir %{_sysconfdir}
 #%dir %{_sysconfdir}/conf
@@ -195,3 +194,4 @@ fi
 %attr(755,root,root) %{_libdir}/scripts/net/system
 %attr(755,root,root) %{_libdir}/scripts/net/udhcpc-wrapper
 %attr(755,root,root) %{_libdir}/scripts/net/wpa_supplicant
+%attr(755,root,root) %{_libdir}/scripts/net/wpa_cli.action
