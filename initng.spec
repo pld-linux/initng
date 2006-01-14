@@ -1,3 +1,7 @@
+#
+# Conditional build:
+%bcond_with	gui		# build gui. needs kdepyuic from python-PyKDE. crashes.
+#
 Summary:	A next generation init replacement
 Summary(pl):	Zamiennik inita nastêpnej generacji
 Name:		initng
@@ -18,12 +22,16 @@ BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	libtool
 BuildRequires:	sed >= 4.0
+%{?with_gui:BuildRequires:	python-PyKDE >= 4.0.0}
 Requires:	bash
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_exec_prefix	/
 %define		_sysconfdir		/etc/%{name}
 %define		_libdir			/%{_lib}/%{name}
+%define		_bindir			%{_prefix}/sbin
+# this is to avoid ugly //sbin
+%define		_sbindir		/sbin
 
 %description
 Initng is a full replacement of the old and in many ways deprecated
@@ -38,6 +46,16 @@ narzêdzie SysVinit. Zosta³ zaprojektowany z my¶l± o szybko¶ci, robi
 równolegle tak wiele jak tylko mo¿liwe. Innymi s³owy: umo¿liwia du¿o
 szybszy start systemu uniksowego oraz zapewnia wiêksz± kontrolê i
 statystyki.
+
+%package gui
+Summary:	InitNG GUI
+Group:		X11/Applications
+Requires:	python
+Requires:	python-PyQt
+Requires:	python-PyKDE
+
+%description gui
+InitNG Runlevel Editor with DCOP support.
 
 # just temp place holder for those scripts
 %package fixes
@@ -74,7 +92,13 @@ istniej±cych rc-scripts.
 %prep
 %setup -q %{?_snap:-n %{name}}
 %patch0 -p1
+%ifnarch amd64
+# patch needs fixing:
+#initng_initctl.c: In function `makeutmp':
+#initng_initctl.c:228: warning: passing arg 1 of `gettimeofday' from incompatible pointer type
+#make[3]: *** [initng_initctl.lo] Error 1
 %patch1 -p1
+%endif
 
 %build
 %{__libtoolize}
@@ -94,6 +118,11 @@ istniej±cych rc-scripts.
 %{__make} \
 	CPPFLAGS='-DINITNG_PLUGIN_DIR=\"/%{_lib}/%{name}\"'
 
+%if %{with gui}
+%{__make} generate \
+	-C gui/runlevelEditor
+%endif
+
 %install
 rm -rf $RPM_BUILD_ROOT
 
@@ -103,6 +132,12 @@ rm -rf $RPM_BUILD_ROOT
 # install test_parser program, which will help you check your .i files
 # validity
 libtool --mode=install cp devtool/test_parser $RPM_BUILD_ROOT%{_sbindir}/%{name}-test_parser
+
+%if %{with gui}
+cd gui/runlevelEditor
+install InitNGRunlevelEditor.py $RPM_BUILD_ROOT%{_bindir}
+install initng.py $RPM_BUILD_ROOT%{_bindir}
+%endif
 
 # no devel package, so no devel files
 rm -f $RPM_BUILD_ROOT/%{_lib}/libinitng.la
@@ -158,6 +193,12 @@ fi
 %{_mandir}/man8/ngdc.8*
 %{_mandir}/man8/install_service.8*
 %{_mandir}/man8/system_off.8*
+
+%if %{with gui}
+%files gui
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_bindir}/*.py
+%endif
 
 %files fixes
 %defattr(644,root,root,755)
