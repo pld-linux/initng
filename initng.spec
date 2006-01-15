@@ -49,6 +49,7 @@ statystyki.
 
 %package gui
 Summary:	InitNG GUI
+Summary(pl):	Graficzny interfejs do InitNG
 Group:		X11/Applications
 Requires:	python
 Requires:	python-PyQt
@@ -56,6 +57,9 @@ Requires:	python-PyKDE
 
 %description gui
 InitNG Runlevel Editor with DCOP support.
+
+%description gui -l pl
+Edytor poziomów dzia³ania InitNG z obs³ug± DCOP.
 
 # just temp place holder for those scripts
 %package fixes
