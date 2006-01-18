@@ -1,6 +1,7 @@
 #
 # Conditional build:
-%bcond_with	gui		# build gui. needs kdepyuic from python-PyKDE. crashes.
+%bcond_with	gui		# build gui. crashes.
+%bcond_with	plan_b	# use any python-PyKDE, and have kdepyuic copied manually to $PATH
 #
 Summary:	A next generation init replacement
 Summary(pl):	Zamiennik inita nastêpnej generacji
@@ -22,7 +23,12 @@ BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	libtool
 BuildRequires:	sed >= 4.0
-%{?with_gui:BuildRequires:	python-PyKDE >= 4.0.0}
+%if %{with gui}
+BuildRequires:	python-PyKDE
+# plan B means that you manually cp kdepyuic to your $PATH:
+# cp ../BUILD/PyKDE-snapshot20051013/contrib/kdepyuic /usr/bin
+%{!?with_plan_b:BuildRequires:	python-PyKDE >= 4.0.0}
+%endif
 Requires:	bash
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -66,6 +72,7 @@ Edytor poziomów dzia³ania InitNG z obs³ug± DCOP.
 Summary:	initng experimental patches and fixes
 Summary(pl):	Eksperymentalne ³aty i poprawki do initng
 Group:		Base
+Requires:	protection(you'll_need_to_use_--force_option_to_install_this_package)
 Requires:	%{name} = %{epoch}:%{version}-%{release}
 
 %description fixes
@@ -82,6 +89,7 @@ instalowaæ ten pakiet z opcj± rpm-a --replacefiles.
 Summary:	Bundled initscripts
 Summary(pl):	Do³±czone skrypty inicjalizuj±ce
 Group:		Base
+Requires:	protection(you'll_need_to_use_--force_option_to_install_this_package)
 Requires:	%{name} = %{epoch}:%{version}-%{release}
 
 %description initscripts
