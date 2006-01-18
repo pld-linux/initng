@@ -8,7 +8,7 @@ Summary(pl):	Zamiennik inita nastêpnej generacji
 Name:		initng
 Version:	0.5.2
 #define	_snap 20051022
-%define	_rel 0.1
+%define	_rel 0.3
 Release:	%{?_snap:0.%{_snap}.}%{_rel}
 License:	GPL v2
 Group:		Base
@@ -17,6 +17,7 @@ Source0:	http://initng.thinktux.net/download/v0.5/%{name}-%{version}.tar.bz2
 # Source0-md5:	d28c1f8d5639a226bed28d5d713f17ac
 Patch0:		%{name}-savefile.patch
 Patch1:		%{name}-utmpx.patch
+Patch2:		%{name}-no-spying.patch
 URL:		http://jw.dyndns.org/initng/
 BuildRequires:	/etc/pld-release
 BuildRequires:	autoconf
@@ -111,6 +112,7 @@ istniej±cych rc-scripts.
 #make[3]: *** [initng_initctl.lo] Error 1
 %patch1 -p1
 %endif
+%patch2 -p1
 
 %build
 %{__libtoolize}
