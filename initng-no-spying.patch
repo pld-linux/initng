@@ -10,7 +10,7 @@ three things:
  	@echo
  	@echo
 -	./count_me.sh
-+	#./count_me.sh
++	echo ./count_me.sh
  
  initng-paths.h:		$(top_builddir)/config.status
  	@echo '#ifndef INITNG_INITNG_PATHS_H'  >$@
