@@ -8,7 +8,7 @@ Summary(pl):	Zamiennik inita nastêpnej generacji
 Name:		initng
 Version:	0.5.2
 #define	_snap 20051022
-%define	_rel 0.3
+%define	_rel 0.4
 Release:	%{?_snap:0.%{_snap}.}%{_rel}
 License:	GPL v2
 Group:		Base
@@ -23,6 +23,7 @@ BuildRequires:	/etc/pld-release
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	libtool
+BuildRequires:	rpmbuild(macros) >= 1.194
 BuildRequires:	sed >= 4.0
 %if %{with gui}
 BuildRequires:	python-PyKDE
@@ -59,8 +60,8 @@ Summary:	InitNG GUI
 Summary(pl):	Graficzny interfejs do InitNG
 Group:		X11/Applications
 Requires:	python
-Requires:	python-PyQt
 Requires:	python-PyKDE
+Requires:	python-PyQt
 
 %description gui
 InitNG Runlevel Editor with DCOP support.
@@ -73,8 +74,8 @@ Edytor poziomów dzia³ania InitNG z obs³ug± DCOP.
 Summary:	initng experimental patches and fixes
 Summary(pl):	Eksperymentalne ³aty i poprawki do initng
 Group:		Base
-Requires:	protection(you'll_need_to_use_--force_option_to_install_this_package)
 Requires:	%{name} = %{epoch}:%{version}-%{release}
+Requires:	protection(you'll_need_to_use_--force_option_to_install_this_package)
 
 %description fixes
 Contains fixes directory from initng distribution, which appear to
@@ -90,8 +91,8 @@ instalowaæ ten pakiet z opcj± rpm-a --replacefiles.
 Summary:	Bundled initscripts
 Summary(pl):	Do³±czone skrypty inicjalizuj±ce
 Group:		Base
-Requires:	protection(you'll_need_to_use_--force_option_to_install_this_package)
 Requires:	%{name} = %{epoch}:%{version}-%{release}
+Requires:	protection(you'll_need_to_use_--force_option_to_install_this_package)
 
 %description initscripts
 This package contains the bundled iniscripts. These are very
@@ -165,8 +166,14 @@ rm -rf $RPM_BUILD_ROOT
 %post
 /sbin/ldconfig
 if [ "$1" = 1 ]; then
-	echo >&2 "Remember to add init=%{_sbindir}/initng in your grub or lilo config to use initng"
-	echo >&2 "Happy testing."
+	%banner -e %{name} <<-EOF
+Remember to add init=%{_sbindir}/initng in your grub or lilo config to use initng.
+
+You should install 'initng-pld' for PLD Linux rc-scripts based scripts,
+or 'initng-initscripts' for the original distributed scripts.
+
+Happy testing.
+EOF
 fi
 
 /sbin/ngc -c > /dev/null || :
