@@ -75,7 +75,6 @@ Summary:	initng experimental patches and fixes
 Summary(pl):	Eksperymentalne ³aty i poprawki do initng
 Group:		Base
 Requires:	%{name} = %{epoch}:%{version}-%{release}
-Requires:	protection(you'll_need_to_use_--force_option_to_install_this_package)
 
 %description fixes
 Contains fixes directory from initng distribution, which appear to
@@ -92,7 +91,6 @@ Summary:	Bundled initscripts
 Summary(pl):	Do³±czone skrypty inicjalizuj±ce
 Group:		Base
 Requires:	%{name} = %{epoch}:%{version}-%{release}
-Requires:	protection(you'll_need_to_use_--force_option_to_install_this_package)
 
 %description initscripts
 This package contains the bundled iniscripts. These are very
