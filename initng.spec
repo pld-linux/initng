@@ -6,18 +6,17 @@
 Summary:	A next generation init replacement
 Summary(pl):	Zamiennik inita nastêpnej generacji
 Name:		initng
-Version:	0.5.2
+Version:	0.5.3
 #define	_snap 20051022
-%define	_rel 0.4
+%define	_rel 0.1
 Release:	%{?_snap:0.%{_snap}.}%{_rel}
 License:	GPL v2
 Group:		Base
 #Source0:	/home/builder/svn/initng-20051022.tar.bz2
 Source0:	http://initng.thinktux.net/download/v0.5/%{name}-%{version}.tar.bz2
-# Source0-md5:	d28c1f8d5639a226bed28d5d713f17ac
+# Source0-md5:	66c2ebc60416b83edae270c71fbdf9ba
 Patch0:		%{name}-savefile.patch
 Patch1:		%{name}-utmpx.patch
-Patch2:		%{name}-no-spying.patch
 URL:		http://jw.dyndns.org/initng/
 BuildRequires:	/etc/pld-release
 BuildRequires:	autoconf
@@ -111,7 +110,6 @@ istniej±cych rc-scripts.
 #make[3]: *** [initng_initctl.lo] Error 1
 %patch1 -p1
 %endif
-%patch2 -p1
 
 %build
 %{__libtoolize}
@@ -123,7 +121,8 @@ istniej±cych rc-scripts.
 	--%{?debug:en}%{!?debug:dis}able-debug \
 	--sysconfdir=/etc \
 	--libdir=/%{_lib} \
-	--disable-install-init
+	--disable-install-init \
+	--disable-count-me
 
 #	--with-splash \
 #	--with-splashy \
