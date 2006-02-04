@@ -30,7 +30,7 @@ BuildRequires:	python-PyKDE
 # cp ../BUILD/PyKDE-snapshot20051013/contrib/kdepyuic /usr/bin
 %{!?with_plan_b:BuildRequires:	python-PyKDE >= 4.0.0}
 %endif
-Requires:	bash
+Requires(post):	/sbin/ldconfig
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_exec_prefix	/
@@ -68,7 +68,7 @@ InitNG Runlevel Editor with DCOP support.
 %description gui -l pl
 Edytor poziomów dzia³ania InitNG z obs³ug± DCOP.
 
-# just temp place holder for those scripts
+# just temp placeholder for those scripts
 %package fixes
 Summary:	initng experimental patches and fixes
 Summary(pl):	Eksperymentalne ³aty i poprawki do initng
@@ -90,6 +90,7 @@ Summary:	Bundled initscripts
 Summary(pl):	Do³±czone skrypty inicjalizuj±ce
 Group:		Base
 Requires:	%{name} = %{epoch}:%{version}-%{release}
+Requires:	bash
 
 %description initscripts
 This package contains the bundled iniscripts. These are very
@@ -173,7 +174,7 @@ Happy testing.
 EOF
 fi
 
-/sbin/ngc -c > /dev/null || :
+%{_sbindir}/ngc -c > /dev/null || :
 
 %postun	-p /sbin/ldconfig
 
@@ -183,16 +184,13 @@ fi
 %doc doc/imanual.txt doc/initng.txt
 %doc doc/gentoo-chart.png doc/initng-chart.png
 %dir %{_sysconfdir}
-#%dir %{_sysconfdir}/conf
 %dir %{_sysconfdir}/daemon
 %dir %{_sysconfdir}/debug
 %dir %{_sysconfdir}/net
 %dir %{_sysconfdir}/system
-#%dir %{_sysconfdir}/plugin
 %dir %{_libdir}
 %dir %{_libdir}/scripts
 %dir %{_libdir}/scripts/net
-#%config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/plugin/readahead.i
 %attr(755,root,root) /%{_lib}/libinitng.so.*.*.*
 %attr(755,root,root) %{_libdir}/lib*.so
 %attr(755,root,root) %{_sbindir}/install_service
