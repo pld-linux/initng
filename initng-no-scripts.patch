@@ -1,0 +1,51 @@
+--- initng-0.5.3/Makefile.am~	2006-01-22 22:07:18.000000000 +0200
++++ initng-0.5.3/Makefile.am	2006-02-06 00:12:44.000000000 +0200
+@@ -1,4 +1,4 @@
+-SUBDIRS = tools src plugins scripts doc fixes initfiles gui devtool
++SUBDIRS = tools src plugins scripts doc gui devtool
+ 
+ sbin_SCRIPTS = gen_system_runlevel
+ 
+--- initng-0.5.3/Makefile.am~	2006-02-06 00:15:45.000000000 +0200
++++ initng-0.5.3/Makefile.am	2006-02-06 02:47:33.000000000 +0200
+@@ -1,7 +1,5 @@
+ SUBDIRS = tools src plugins scripts doc gui devtool
+ 
+-sbin_SCRIPTS = gen_system_runlevel
+-
+ BUILT_SOURCES = initng-paths.h
+ CLEANFILES =    initng-paths.h
+ 
+--- initng-0.5.3/Makefile.am~	2006-02-06 02:49:01.000000000 +0200
++++ initng-0.5.3/Makefile.am	2006-02-06 03:00:26.000000000 +0200
+@@ -19,7 +19,6 @@
+ 	@echo "eg. at the end of the kernel line in /boot/grub/grub.conf"
+ 	@echo "Have a lot of fun!"
+ 	@echo
+-	$(top_srcdir)/gen_system_runlevel $(DESTDIR)
+ 	@echo
+ 	@echo "If you have initng running, you can reload it with:"
+ 	@echo "# /sbin/ngc -c"
+--- initng-0.5.3/tools/Makefile.am~	2006-02-06 03:10:19.000000000 +0200
++++ initng-0.5.3/tools/Makefile.am	2006-02-06 03:10:24.000000000 +0200
+@@ -4,10 +4,9 @@
+ 
+ install_service_SOURCES = install_service.c
+ system_off_SOURCES = system_off.c
+-killalli5_SOURCES = killall5.c
+ 
+-sbin_PROGRAMS = system_off install_service killalli5
+-sbin_SCRIPTS  = ng-update shutdown_script initng-segfault
++sbin_PROGRAMS = system_off install_service
++sbin_SCRIPTS  = ng-update initng-segfault
+ 
+ 
+ if INSTALL_AS_INIT
+--- initng-0.5.3/Makefile.am~	2006-02-06 03:03:50.000000000 +0200
++++ initng-0.5.3/Makefile.am	2006-02-06 03:12:28.000000000 +0200
+@@ -1,4 +1,4 @@
+-SUBDIRS = tools src plugins scripts doc gui devtool
++SUBDIRS = tools src plugins doc gui devtool
+ 
+ BUILT_SOURCES = initng-paths.h
+ CLEANFILES =    initng-paths.h
