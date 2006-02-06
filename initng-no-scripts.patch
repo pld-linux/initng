@@ -63,3 +63,13 @@
  sbin_SCRIPTS  = ng-update initng-segfault
  
  
+--- initng-0.5.3/doc/Makefile.am~	2006-01-22 22:07:25.000000000 +0200
++++ initng-0.5.3/doc/Makefile.am	2006-02-07 01:04:34.000000000 +0200
+@@ -1,7 +1,5 @@
+ man_MANS = \
+-	gen_system_runlevel.8 \
+ 	initng.8 \
+-	install_service.8 \
+ 	ngc.8 \
+ 	ngdc.8 \
+ 	ng-update.8 \
