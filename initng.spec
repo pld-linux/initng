@@ -187,7 +187,6 @@ fi
 %dir %{_libdir}
 %attr(755,root,root) /%{_lib}/libinitng.so.*.*.*
 %attr(755,root,root) %{_libdir}/lib*.so
-%attr(755,root,root) %{_sbindir}/install_service
 %attr(755,root,root) %{_sbindir}/initng
 %attr(755,root,root) %{_sbindir}/initng-segfault
 %attr(755,root,root) %{_sbindir}/initng-test_parser
@@ -198,9 +197,7 @@ fi
 %{_mandir}/man8/initng.8*
 %{_mandir}/man8/ngc.8*
 %{_mandir}/man8/ng-update.8*
-%{_mandir}/man8/gen_system_runlevel.8*
 %{_mandir}/man8/ngdc.8*
-%{_mandir}/man8/install_service.8*
 %{_mandir}/man8/system_off.8*
 
 %if %{with gui}
@@ -237,6 +234,7 @@ fi
 %attr(755,root,root) %{_prefix}%{_sbindir}/ngcupdown
 %attr(755,root,root) %{_sbindir}/gen_system_runlevel
 %attr(755,root,root) %{_sbindir}/shutdown_script
+%attr(755,root,root) %{_sbindir}/install_service
 %dir %{_libdir}/scripts
 %dir %{_libdir}/scripts/net
 %attr(755,root,root) %{_libdir}/scripts/net/dhclient-wrapper
@@ -253,4 +251,6 @@ fi
 %attr(755,root,root) %{_libdir}/scripts/net/udhcpc-wrapper
 %attr(755,root,root) %{_libdir}/scripts/net/wpa_supplicant
 %attr(755,root,root) %{_libdir}/scripts/net/wpa_cli.action
+%{_mandir}/man8/install_service.8*
+%{_mandir}/man8/gen_system_runlevel.8*
 %endif
