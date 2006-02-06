@@ -49,3 +49,17 @@
  
  BUILT_SOURCES = initng-paths.h
  CLEANFILES =    initng-paths.h
+--- initng-0.5.3/tools/Makefile.am~	2006-02-06 03:21:06.000000000 +0200
++++ initng-0.5.3/tools/Makefile.am	2006-02-06 03:21:08.000000000 +0200
+@@ -2,10 +2,9 @@
+ 
+ AUTOMAKE_OPTIONS = gnu
+ 
+-install_service_SOURCES = install_service.c
+ system_off_SOURCES = system_off.c
+ 
+-sbin_PROGRAMS = system_off install_service
++sbin_PROGRAMS = system_off
+ sbin_SCRIPTS  = ng-update initng-segfault
+ 
+ 
