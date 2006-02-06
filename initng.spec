@@ -1,6 +1,7 @@
 #
 # Conditional build:
 %bcond_with	gui		# build gui. crashes.
+%bcond_with	dist	# build initscripts from initng distribution
 %bcond_with	plan_b	# use any python-PyKDE, and have kdepyuic copied manually to $PATH
 #
 Summary:	A next generation init replacement
@@ -8,7 +9,7 @@ Summary(pl):	Zamiennik inita nastêpnej generacji
 Name:		initng
 Version:	0.5.3
 #define	_snap 20051022
-%define	_rel 0.1
+%define	_rel 0.2
 Release:	%{?_snap:0.%{_snap}.}%{_rel}
 License:	GPL v2
 Group:		Base
@@ -17,6 +18,7 @@ Source0:	http://initng.thinktux.net/download/v0.5/%{name}-%{version}.tar.bz2
 # Source0-md5:	66c2ebc60416b83edae270c71fbdf9ba
 Patch0:		%{name}-savefile.patch
 Patch1:		%{name}-utmpx.patch
+Patch2:		%{name}-no-scripts.patch
 URL:		http://jw.dyndns.org/initng/
 BuildRequires:	/etc/pld-release
 BuildRequires:	autoconf
@@ -111,6 +113,7 @@ istniej±cych rc-scripts.
 #make[3]: *** [initng_initctl.lo] Error 1
 %patch1 -p1
 %endif
+%{!?with_dist:%patch2 -p1}
 
 %build
 %{__libtoolize}
@@ -125,11 +128,7 @@ istniej±cych rc-scripts.
 	--disable-install-init \
 	--disable-count-me
 
-#	--with-splash \
-#	--with-splashy \
-
-%{__make} \
-	CPPFLAGS='-DINITNG_PLUGIN_DIR=\"/%{_lib}/%{name}\"'
+%{__make}
 
 %if %{with gui}
 %{__make} generate \
@@ -138,6 +137,7 @@ istniej±cych rc-scripts.
 
 %install
 rm -rf $RPM_BUILD_ROOT
+install -d $RPM_BUILD_ROOT%{_sysconfdir}
 
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
@@ -184,13 +184,7 @@ fi
 %doc doc/imanual.txt doc/initng.txt
 %doc doc/gentoo-chart.png doc/initng-chart.png
 %dir %{_sysconfdir}
-%dir %{_sysconfdir}/daemon
-%dir %{_sysconfdir}/debug
-%dir %{_sysconfdir}/net
-%dir %{_sysconfdir}/system
 %dir %{_libdir}
-%dir %{_libdir}/scripts
-%dir %{_libdir}/scripts/net
 %attr(755,root,root) /%{_lib}/libinitng.so.*.*.*
 %attr(755,root,root) %{_libdir}/lib*.so
 %attr(755,root,root) %{_sbindir}/install_service
@@ -201,7 +195,6 @@ fi
 %attr(755,root,root) %{_sbindir}/ngc
 %attr(755,root,root) %{_sbindir}/ngdc
 %attr(755,root,root) %{_sbindir}/system_off
-%attr(755,root,root) %{_prefix}%{_sbindir}/ngcupdown
 %{_mandir}/man8/initng.8*
 %{_mandir}/man8/ngc.8*
 %{_mandir}/man8/ng-update.8*
@@ -216,6 +209,7 @@ fi
 %attr(755,root,root) %{_bindir}/*.py
 %endif
 
+%if %{with dist}
 %files fixes
 %defattr(644,root,root,755)
 %config(noreplace) %verify(not md5 mtime size) /etc/pcmcia/network
@@ -227,7 +221,11 @@ fi
 %files initscripts
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_sbindir}/killalli5
+%dir %{_sysconfdir}/daemon
 %dir %{_sysconfdir}/daemon/bluetooth
+%dir %{_sysconfdir}/debug
+%dir %{_sysconfdir}/net
+%dir %{_sysconfdir}/system
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/*.i
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/daemon/*.i
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/daemon/bluetooth/*.i
@@ -236,8 +234,11 @@ fi
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/net/*.i
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/*.runlevel
 %config(noreplace) %verify(not md5 mtime size) %{_libdir}/service_alias
+%attr(755,root,root) %{_prefix}%{_sbindir}/ngcupdown
 %attr(755,root,root) %{_sbindir}/gen_system_runlevel
 %attr(755,root,root) %{_sbindir}/shutdown_script
+%dir %{_libdir}/scripts
+%dir %{_libdir}/scripts/net
 %attr(755,root,root) %{_libdir}/scripts/net/dhclient-wrapper
 %attr(755,root,root) %{_libdir}/scripts/net/dhcp
 %attr(755,root,root) %{_libdir}/scripts/net/dhcpcd-backgrounder
@@ -252,3 +253,4 @@ fi
 %attr(755,root,root) %{_libdir}/scripts/net/udhcpc-wrapper
 %attr(755,root,root) %{_libdir}/scripts/net/wpa_supplicant
 %attr(755,root,root) %{_libdir}/scripts/net/wpa_cli.action
+%endif
