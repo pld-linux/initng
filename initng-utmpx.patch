@@ -16,7 +16,7 @@
  #include "initreq.h"
  
  #include "initng_initctl.h"
-@@ -191,35 +193,34 @@
+@@ -235,15 +235,14 @@
  static void makeutmp(int runlevel)
  {
      D_("Making utmp file for runlevel %d\n", runlevel);
@@ -28,16 +28,14 @@
       * this is created by bootmisc, if this isn't there we can't set runlevel.
       */
 -    if (access(UTMP_FILE, F_OK) < 0)
-+	/*
 +    if (access(UTMPX_FILE, F_OK) < 0)
      {
 -        F_("/var/run/utmp does not exist, this should be created by bootmisc.i\n");
 +        F_("%s not exist, this should be created by bootmisc.i\n", UTMPX_FILE);
          return;
--    }
-+    }*/
+     }
      /*
-        todo, is this a good idea or a bad idea?
+@@ -251,19 +250,18 @@
         utmpname("/var/run/utmp");
       */
  
@@ -52,11 +50,12 @@
 +    memset(&utmpx, 0, sizeof(utmpx));
 +    utmpx.ut_type = RUN_LVL;
 +    utmpx.ut_pid = ('#' << 8) + runlevel + '0';
-+    gettimeofday (&utmpx.ut_tv, NULL);
++    gettimeofday(&utmpx.ut_tv, NULL);
 +    if (pututxline(&utmpx) == NULL)
      {
-         F_("pututline failed\n");
+-        F_("pututline failed\n");
 -        endutent();
++        F_("pututxline failed\n");
 +        endutxent();
          return;
      }

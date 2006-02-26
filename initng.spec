@@ -7,18 +7,19 @@
 Summary:	A next generation init replacement
 Summary(pl):	Zamiennik inita nastêpnej generacji
 Name:		initng
-Version:	0.5.3
+Version:	0.5.4
 #define	_snap 20051022
-%define	_rel 0.2
+%define	_rel 0.1
 Release:	%{?_snap:0.%{_snap}.}%{_rel}
 License:	GPL v2
 Group:		Base
 #Source0:	/home/builder/svn/initng-20051022.tar.bz2
 Source0:	http://initng.thinktux.net/download/v0.5/%{name}-%{version}.tar.bz2
-# Source0-md5:	66c2ebc60416b83edae270c71fbdf9ba
+# Source0-md5:	eeea6ef8afb76c292f4a36200e2905c6
 Patch0:		%{name}-savefile.patch
 Patch1:		%{name}-utmpx.patch
 Patch2:		%{name}-no-scripts.patch
+Patch3:		%{name}-ncurses.patch
 URL:		http://jw.dyndns.org/initng/
 BuildRequires:	/etc/pld-release
 BuildRequires:	autoconf
@@ -114,6 +115,7 @@ istniej±cych rc-scripts.
 %patch1 -p1
 %endif
 %{!?with_dist:%patch2 -p1}
+%patch3 -p1
 
 %build
 %{__libtoolize}
@@ -157,6 +159,8 @@ rm -f $RPM_BUILD_ROOT/%{_lib}/libinitng.la
 rm -f $RPM_BUILD_ROOT%{_libdir}/*.la
 # duplicated
 rm -rf $RPM_BUILD_ROOT%{_docdir}/%{name}
+# should be in sysconfig probably
+rm -f $RPM_BUILD_ROOT%{_libdir}/service_alias
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -193,6 +197,13 @@ fi
 %attr(755,root,root) %{_sbindir}/ng-update
 %attr(755,root,root) %{_sbindir}/ngc
 %attr(755,root,root) %{_sbindir}/ngdc
+%attr(755,root,root) %{_sbindir}/nghalt
+%attr(755,root,root) %{_sbindir}/ngreboot
+%attr(755,root,root) %{_sbindir}/ngrestart
+%attr(755,root,root) %{_sbindir}/ngstart
+%attr(755,root,root) %{_sbindir}/ngstatus
+%attr(755,root,root) %{_sbindir}/ngstop
+%attr(755,root,root) %{_sbindir}/ngzap
 %attr(755,root,root) %{_sbindir}/system_off
 %{_mandir}/man8/initng.8*
 %{_mandir}/man8/ngc.8*
