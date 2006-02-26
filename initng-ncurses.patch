@@ -1,0 +1,12 @@
+--- initng-0.5.4/plugins/ngc2/Makefile.am~	2006-02-26 14:05:06.000000000 +0200
++++ initng-0.5.4/plugins/ngc2/Makefile.am	2006-02-26 14:05:09.000000000 +0200
+@@ -10,7 +10,9 @@
+ libngc2_la_LIBADD = ../../src/libinitng.la
+ 
+ ngc_SOURCES = ngc2.c
++ngc_CFLAGS = -I/usr/include/ncurses
+ ngdc_SOURCES = ngc2.c
++ngdc_CFLAGS = -I/usr/include/ncurses
+ 
+ install-data-hook:
+ 	rm -f $(DESTDIR)$(plugindir)/$(plugin_LTLIBRARIES)
