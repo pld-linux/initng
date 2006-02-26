@@ -9,7 +9,7 @@ Summary(pl):	Zamiennik inita nastêpnej generacji
 Name:		initng
 Version:	0.5.4
 #define	_snap 20051022
-%define	_rel 0.1
+%define	_rel 0.2
 Release:	%{?_snap:0.%{_snap}.}%{_rel}
 License:	GPL v2
 Group:		Base
@@ -161,6 +161,10 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/*.la
 rm -rf $RPM_BUILD_ROOT%{_docdir}/%{name}
 # should be in sysconfig probably
 rm -f $RPM_BUILD_ROOT%{_libdir}/service_alias
+# bug probably
+for a in nghalt ngreboot ngrestart ngstart ngstatus ngstop ngzap; do
+	ln -sf ngc $RPM_BUILD_ROOT%{_sbindir}/$a
+done
 
 %clean
 rm -rf $RPM_BUILD_ROOT
