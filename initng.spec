@@ -4,22 +4,22 @@
 %bcond_with	dist	# build initscripts from initng distribution
 %bcond_with	plan_b	# use any python-PyKDE, and have kdepyuic copied manually to $PATH
 #
+%define _pre pre1
+#define	_snap 20051022
+%define	_rel 0.1
 Summary:	A next generation init replacement
 Summary(pl):	Zamiennik inita nastêpnej generacji
 Name:		initng
-Version:	0.5.4
-#define	_snap 20051022
-%define	_rel 0.4
-Release:	%{?_snap:0.%{_snap}.}%{_rel}
+Version:	0.5.5
+Release:	%{?_snap:0.%{_snap}.}%{?_pre:0.%{_pre}.}%{_rel}
 License:	GPL v2
 Group:		Base
 #Source0:	/home/builder/svn/initng-20051022.tar.bz2
-Source0:	http://initng.thinktux.net/download/v0.5/%{name}-%{version}.tar.bz2
-# Source0-md5:	eeea6ef8afb76c292f4a36200e2905c6
+Source0:	http://download.initng.thinktux.net/v0.5/%{name}-%{version}_%{_pre}.tar.bz2
+# Source0-md5:	68d5bbb6722adbd9a2a7d37d67cab4e9
 Patch0:		%{name}-savefile.patch
 Patch1:		%{name}-utmpx.patch
 Patch2:		%{name}-no-scripts.patch
-Patch3:		%{name}-ncurses.patch
 URL:		http://jw.dyndns.org/initng/
 BuildRequires:	/etc/pld-release
 BuildRequires:	autoconf
@@ -105,7 +105,7 @@ gentoowskie. Planowane jest napisanie nowych dlaPLD przy u¿yciu
 istniej±cych rc-scripts.
 
 %prep
-%setup -q %{?_snap:-n %{name}}
+%setup -q -n %{name}%{!?_snap:-%{version}}%{?_pre:_%{_pre}}
 %patch0 -p1
 %ifnarch amd64
 # patch needs fixing:
@@ -115,11 +115,10 @@ istniej±cych rc-scripts.
 %patch1 -p1
 %endif
 %{!?with_dist:%patch2 -p1}
-%patch3 -p1
 
 %build
 %{__libtoolize}
-%{__aclocal}
+%{__aclocal} -I m4
 %{__autoconf}
 %{__autoheader}
 %{__automake}
@@ -213,7 +212,6 @@ fi
 %{_mandir}/man8/ngc.8*
 %{_mandir}/man8/ng-update.8*
 %{_mandir}/man8/ngdc.8*
-%{_mandir}/man8/system_off.8*
 
 %if %{with gui}
 %files gui

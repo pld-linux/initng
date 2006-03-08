@@ -1,14 +1,17 @@
-diff -ur initng-0.5.4/Makefile.am initng-0.5.4.new/Makefile.am
---- initng-0.5.4/Makefile.am	2006-02-22 13:12:24.000000000 +0200
-+++ initng-0.5.4.new/Makefile.am	2006-03-08 01:54:43.000000000 +0200
-@@ -1,6 +1,4 @@
+unchanged:
+--- initng-0.5.5_pre1/Makefile.am~	2006-03-08 01:56:38.000000000 +0200
++++ initng-0.5.5_pre1/Makefile.am	2006-03-08 01:58:15.000000000 +0200
+@@ -1,8 +1,8 @@
 -SUBDIRS = tools src plugins scripts doc fixes initfiles gui devtool
--
--sbin_SCRIPTS = gen_system_runlevel
 +SUBDIRS = tools src plugins doc gui devtool
  
- BUILT_SOURCES = initng-paths.h
- CLEANFILES =    initng-paths.h
+ ACLOCAL_AMFLAGS = -I m4
+ 
+-sbin_SCRIPTS = gen_system_runlevel
++sbin_SCRIPTS = 
+ 
+ EXTRA_DIST = \
+ 	$(sbin_SCRIPTS) \
 @@ -21,7 +19,6 @@
  	@echo "eg. at the end of the kernel line in /boot/grub/grub.conf"
  	@echo "Have a lot of fun!"
@@ -17,7 +20,7 @@ diff -ur initng-0.5.4/Makefile.am initng-0.5.4.new/Makefile.am
  	@echo
  	@echo "If you have initng running, you can reload it with:"
  	@echo "# /sbin/ngc -c"
-diff -ur initng-0.5.4/doc/Makefile.am initng-0.5.4.new/doc/Makefile.am
+unchanged:
 --- initng-0.5.4/doc/Makefile.am	2006-02-22 13:12:29.000000000 +0200
 +++ initng-0.5.4.new/doc/Makefile.am	2006-03-08 01:54:43.000000000 +0200
 @@ -1,7 +1,5 @@
@@ -28,7 +31,7 @@ diff -ur initng-0.5.4/doc/Makefile.am initng-0.5.4.new/doc/Makefile.am
  	ngc.8 \
  	ngdc.8 \
  	ng-update.8 \
-diff -ur initng-0.5.4/tools/Makefile.am initng-0.5.4.new/tools/Makefile.am
+unchanged:
 --- initng-0.5.4/tools/Makefile.am	2006-02-22 13:12:29.000000000 +0200
 +++ initng-0.5.4.new/tools/Makefile.am	2006-03-08 01:54:43.000000000 +0200
 @@ -2,12 +2,10 @@
@@ -46,3 +49,15 @@ diff -ur initng-0.5.4/tools/Makefile.am initng-0.5.4.new/tools/Makefile.am
  
  
  if INSTALL_AS_INIT
+only in patch2:
+unchanged:
+--- initng-0.5.5_pre1/plugins/daemon/Makefile.am~	2006-03-07 15:45:15.000000000 +0200
++++ initng-0.5.5_pre1/plugins/daemon/Makefile.am	2006-03-08 02:10:53.000000000 +0200
+@@ -1,7 +1,5 @@
+ AUTOMAKE_OPTIONS = gnu
+ 
+-SUBDIRS=test
+-
+ plugin_LTLIBRARIES = libdaemon.la
+ 
+ libdaemon_la_SOURCES = \
