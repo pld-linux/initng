@@ -14,7 +14,7 @@ Version:	0.5.5
 Release:	%{?_snap:0.%{_snap}.}%{?_pre:0.%{_pre}.}%{_rel}
 License:	GPL v2
 Group:		Base
-Source0:	http://download.initng.thinktux.net/v0.5/%{name}-%{version}%{?_pre:_%{_pre}}.tar.bz2
+Source0:	http://download.initng.thinktux.net/v0.5/%{name}-%{version}.tar.bz2
 # Source0-md5:	969c44d1b020f55db5f2e03473428c31
 Patch0:		%{name}-savefile.patch
 Patch1:		%{name}-utmpx.patch
