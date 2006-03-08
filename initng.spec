@@ -4,7 +4,7 @@
 %bcond_with	dist	# build initscripts from initng distribution
 %bcond_with	plan_b	# use any python-PyKDE, and have kdepyuic copied manually to $PATH
 #
-%define _pre pre1
+#define _pre pre1
 #define	_snap 20051022
 %define	_rel 0.1
 Summary:	A next generation init replacement
@@ -14,9 +14,8 @@ Version:	0.5.5
 Release:	%{?_snap:0.%{_snap}.}%{?_pre:0.%{_pre}.}%{_rel}
 License:	GPL v2
 Group:		Base
-#Source0:	/home/builder/svn/initng-20051022.tar.bz2
-Source0:	http://download.initng.thinktux.net/v0.5/%{name}-%{version}_%{_pre}.tar.bz2
-# Source0-md5:	68d5bbb6722adbd9a2a7d37d67cab4e9
+Source0:	http://download.initng.thinktux.net/v0.5/%{name}-%{version}%{?_pre:_%{_pre}}.tar.bz2
+# Source0-md5:	969c44d1b020f55db5f2e03473428c31
 Patch0:		%{name}-savefile.patch
 Patch1:		%{name}-utmpx.patch
 Patch2:		%{name}-no-scripts.patch
