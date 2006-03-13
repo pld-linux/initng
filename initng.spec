@@ -6,7 +6,7 @@
 #
 #define _pre pre1
 #define	_snap 20051022
-%define	_rel 0.1
+%define	_rel 0.2
 Summary:	A next generation init replacement
 Summary(pl):	Zamiennik inita nastêpnej generacji
 Name:		initng
@@ -19,6 +19,7 @@ Source0:	http://download.initng.thinktux.net/v0.5/%{name}-%{version}.tar.bz2
 Patch0:		%{name}-savefile.patch
 Patch1:		%{name}-utmpx.patch
 Patch2:		%{name}-no-scripts.patch
+Patch3:		%{name}-vserver.patch
 URL:		http://jw.dyndns.org/initng/
 BuildRequires:	/etc/pld-release
 BuildRequires:	autoconf
@@ -114,6 +115,7 @@ istniej±cych rc-scripts.
 %patch1 -p1
 %endif
 %{!?with_dist:%patch2 -p1}
+%patch3 -p1
 
 %build
 %{__libtoolize}
