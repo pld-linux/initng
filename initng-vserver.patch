@@ -1,54 +1,10 @@
---- initng-0.5.5/src/initng_main.c.orig	2006-03-08 14:44:30.000000000 +0200
-+++ initng-0.5.5/src/initng_main.c	2006-03-13 22:34:08.000000000 +0200
-@@ -131,13 +131,17 @@
+--- initng-0.6.0RC1/src/initng_main.c~	2006-03-22 14:29:42.000000000 +0200
++++ initng-0.6.0RC1/src/initng_main.c	2006-03-22 20:57:02.000000000 +0200
+@@ -152,19 +152,32 @@
  
- static void initng_hard(h_then t)
- {
--    FILE *test; int pid;
-+    FILE *test;
-+    int err = 0;
-+    pid_t pid = 0;
- 
-     /* set the sys state */
-     if (t == THEN_REBOOT)
-         initng_main_set_sys_state(STATE_REBOOT);
--    if (t == THEN_HALT)
-+    else if (t == THEN_HALT)
-         initng_main_set_sys_state(STATE_HALT);
-+    else
-+        return; /* Bad argument... */
- 
-     /* sync data to disk */
-     sync();
-@@ -149,55 +153,72 @@
-     /* unload all modules (plugins) found */
-     initng_unload_module_unload_all();
- 
--    /* Mount readonly, youst to be extra sure this is done */
--    mount("/dev/root", "/", NULL, MS_RDONLY + MS_REMOUNT, NULL);
-+    /* Mount readonly, yust to be extra sure this is done */
-+    errno = 0;
-+    if (mount("/dev/root", "/", NULL, MS_RDONLY | MS_REMOUNT, NULL) == -1)
-+        err = errno;
-+
-+    switch (err) {
-+        case 0:
-+            break;
-+
-+        case EINVAL:
-+        case EPERM:
-+	    /* This fix is there to get clean shutdown of virtual hosts
-+	     * missing CAP_SYS_ADMIN */
-+            F_("Syncing and sleeping 2s before reboot/halt because of error when remounting / ro: %s\n", strerror(err));
-+            sync();
-+            sleep(1);
-+            sync();
-+            break;
-+
-+        case EBUSY:
-+        default:
-+            F_("Failed to remount / ro because: %s\n", strerror(err));
- 
+     /* Mount readonly, youst to be extra sure this is done */
+     mount("/dev/root", "/", NULL, MS_RDONLY + MS_REMOUNT, NULL);
+-
 -    if (errno == EBUSY)
 -    {
 -        F_("Failed to remount / ro, EBUSY\n");
@@ -61,79 +17,32 @@
 -        unlink("/initng_write_testfile");
 -        F_("/ IS NOT REMOUNTED READ-ONLY, WONT REBOOT/HALT BECAUSE THE FILE SYSTEM CAN BREAK!\n");
 -        return;
-+            /* check so that / is mounted read only, by trying to open a file */
-+            if ((test = fopen("/initng_write_testfile", "w")) != NULL)
-+            {
-+                fclose(test);
-+                unlink("/initng_write_testfile");
-+                F_("/ IS NOT REMOUNTED READ-ONLY, WONT REBOOT/HALT BECAUSE THE FILE SYSTEM CAN BREAK!\n");
-+                return;
-+            }
++    switch (errno) {
++        case 0:
++            break;
++
++        case EINVAL:
++        case EPERM:
++	    /* This fix is there to get clean shutdown of virtual hosts
++	     * missing CAP_SYS_ADMIN */
++            F_("Syncing and sleeping 1s before reboot/halt because of error when remounting / ro: %s\n", strerror(errno));
++            sync();
++            sleep(1);
++            sync();
++            break;
++
++        case EBUSY:
++        default:
++            F_("Failed to remount / ro because: %s\n", strerror(errno));
++
++			/* check so that / is mounted read only, by trying to open a file */
++			if ((test = fopen("/initng_write_testfile", "w")) != NULL)
++			{
++				fclose(test);
++				unlink("/initng_write_testfile");
++				F_("/ IS NOT REMOUNTED READ-ONLY, WONT REBOOT/HALT BECAUSE THE FILE SYSTEM CAN BREAK!\n");
++				return;
++			}
      }
  
      /* Under certain unknown circumstances, calling reboot(RB_POWER_OFF) from
-        pid 1 leads to a "Kernel panic - not syncing: Attempted to kill init!".
-        Workaround is to fork a child to do it. See bug #488 for details */
--    if (t == THEN_REBOOT || t == THEN_HALT)
-+    pid = fork();
-+    if (pid > 0)
-     {
--        pid = fork();
--	if(pid == 0)
--	{
--	    /* child process - shut down the machine */
--	    if (t == THEN_REBOOT)
--	        reboot(RB_AUTOBOOT);
--	    if (t == THEN_HALT)
-- 	        reboot(RB_POWER_OFF);
--	    _exit(0);
--	} 
--	else if(pid < 0)
--	{
--	  F_("Failed to fork child process to reboot\n");
--	  return;
--	}
--	else 
-+        /* parent process waits for child to exit */
-+        waitpid(pid, NULL, 0);
-+    }
-+    else if (pid == 0) {
-+        sync();
-+        if (t == THEN_REBOOT)
- 	{
--	    /* parent process waits for child to exit */
--	    waitpid(pid, NULL, 0);
--	}
-+            P_("Rebooting system...\n");
-+            reboot(RB_AUTOBOOT);
-+        }
-+	else if (t == THEN_HALT)
-+        {
-+            P_("Powering off system...\n");
-+            reboot(RB_POWER_OFF);
-+        }
-+	_exit(0);
-+    }
-+    else
-+    {
-+        F_("Failed to fork child process to reboot\n");
-+	return;
-     }
- 
-     /* idle forever */
-     while (1)
-         sleep(1);
- 
--
- }
- 
- #define TRY_TIMES 2
-@@ -235,7 +256,7 @@
- 
-         if (sulogin_pid == 0)
-         {
--            char *argv[] = { i_strdup("sulogin"), NULL };
-+            char * argv[] = { i_strdup("sulogin"), i_strdup("/dev/console"), NULL };
- 
-             execve("/sbin/sulogin", argv, environ);     /* launch sulogin */
- 
