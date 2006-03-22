@@ -1,6 +1,6 @@
 %define _rc RC1
 #define	_snap 20051022
-%define	_rel 0.19
+%define	_rel 0.20
 Summary:	A next generation init replacement
 Summary(pl):	Zamiennik inita nastêpnej generacji
 Name:		initng
@@ -22,6 +22,7 @@ BuildRequires:	libtool
 BuildRequires:	rpmbuild(macros) >= 1.194
 BuildRequires:	sed >= 4.0
 Requires(post):	/sbin/ldconfig
+Requires(post):	/sbin/telinit
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_exec_prefix	/
@@ -111,7 +112,7 @@ Happy testing.
 EOF
 fi
 
-%{_sbindir}/ngc -c > /dev/null || :
+/sbin/telinit u || :
 
 %postun	-p /sbin/ldconfig
 
