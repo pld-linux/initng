@@ -13,7 +13,7 @@ Source0:	http://download.initng.thinktux.net/v0.6/%{name}-%{version}%{_rc}.tar.b
 Patch0:		%{name}-savefile.patch
 Patch1:		%{name}-utmpx.patch
 Patch3:		%{name}-vserver.patch
-URL:		http://jw.dyndns.org/initng/
+URL:		http://initng.thinktux.net/
 BuildRequires:	/etc/pld-release
 BuildRequires:	autoconf
 BuildRequires:	automake
