@@ -1,6 +1,6 @@
 --- initng-0.6.0RC1/src/initng_main.c~	2006-03-22 14:29:42.000000000 +0200
 +++ initng-0.6.0RC1/src/initng_main.c	2006-03-22 20:57:02.000000000 +0200
-@@ -152,19 +152,32 @@
+@@ -152,19 +152,27 @@
  
      /* Mount readonly, youst to be extra sure this is done */
      mount("/dev/root", "/", NULL, MS_RDONLY + MS_REMOUNT, NULL);
@@ -23,12 +23,7 @@
 +
 +        case EINVAL:
 +        case EPERM:
-+	    /* This fix is there to get clean shutdown of virtual hosts
-+	     * missing CAP_SYS_ADMIN */
-+            F_("Syncing and sleeping 1s before reboot/halt because of error when remounting / ro: %s\n", strerror(errno));
-+            sync();
-+            sleep(1);
-+            sync();
++	    /* This fix is there to get clean shutdown of virtual hosts missing CAP_SYS_ADMIN */
 +            break;
 +
 +        case EBUSY:
