@@ -1,6 +1,6 @@
 %define _rc RC1
 #define	_snap 20051022
-%define	_rel 0.1
+%define	_rel 0.4
 Summary:	A next generation init replacement
 Summary(pl):	Zamiennik inita nastêpnej generacji
 Name:		initng
@@ -12,7 +12,7 @@ Source0:	http://download.initng.thinktux.net/v0.6/%{name}-%{version}%{_rc}.tar.b
 # Source0-md5:	4e29074adacaee1285e0f60fdc3a18c3
 Patch0:		%{name}-savefile.patch
 Patch1:		%{name}-utmpx.patch
-Patch3:		%{name}-vserver.patch
+Patch2:		%{name}-vserver.patch
 URL:		http://initng.thinktux.net/
 BuildRequires:	/etc/pld-release
 BuildRequires:	autoconf
@@ -54,14 +54,8 @@ Header files for initng.
 %prep
 %setup -q -n %{name}%{!?_snap:-%{version}}%{?_pre:_%{_pre}}%{?_rc}
 %patch0 -p1
-%ifnarch amd64
-# patch needs fixing:
-#initng_initctl.c: In function `makeutmp':
-#initng_initctl.c:228: warning: passing arg 1 of `gettimeofday' from incompatible pointer type
-#make[3]: *** [initng_initctl.lo] Error 1
 %patch1 -p1
-%endif
-#%patch3 -p1
+%patch2 -p1
 
 %build
 %{__libtoolize}
