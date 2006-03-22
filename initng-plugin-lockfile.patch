@@ -10,9 +10,10 @@
 +
 +liblockfile_la_LDFLAGS = @PLUGIN_LDFLAGS@
 +liblockfile_la_LIBADD = @PLUGIN_LIBS@
---- /usr/share/empty/initng_lockfile.c	1970-01-01 03:00:00.000000000 +0300
-+++ initng-contrib/plugins/lockfile/initng_lockfile.c	2006-03-22 22:55:11.000000000 +0200
-@@ -0,0 +1,74 @@
+diff -u initng-contrib/plugins/lockfile/initng_lockfile.c initng-0.6.0RC1.plugin/plugins/lockfile/initng_lockfile.c
+--- initng-contrib/plugins/lockfile/initng_lockfile.c	2006-03-22 22:55:11.000000000 +0200
++++ initng-0.6.0RC1.plugin/plugins/lockfile/initng_lockfile.c	2006-03-23 00:10:50.000000000 +0200
+@@ -0,0 +1,87 @@
 +/* Initng, a next generation sysvinit replacement.
 + * Copyright (C) 2006 Elan Ruusamäe <glen@pld-linux.org>
 + *
@@ -57,11 +58,24 @@
 +
 +static int status_change(active_db_h * service)
 +{
-+char lockfile[sizeof(LOCKDIR) + strlen(service->name)];
++	D_("status change [%s]\n", service->name);
 +
-+	sprintf(lockfile, "%s/%s", LOCKDIR, service->name);
-+	if (IS_UP(service)) {
-+		creat(lockfile, 0);
++	// are we under influence of lockfile?
++	if (initng_active_db_is(&LOCKFILE, service)) {
++		char *p = strrchr(service->name, '/') + 1;
++		char lockfile[sizeof(LOCKDIR) + strlen(p)];
++		strcpy(mempcpy(lockfile, LOCKDIR, sizeof(LOCKDIR) - 1), p);
++
++		D_("lockfile path [%s]\n", lockfile);
++		// service states from initng_is.h
++		if (IS_UP(service)) {
++			D_("service got up\n");
++			creat(lockfile, S_IREAD);
++
++		} else if (IS_DOWN(service)) {
++			D_("service went down\n");
++			unlink(lockfile);
++		}
 +	}
 +
 +	return(TRUE);
