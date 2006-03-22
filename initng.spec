@@ -1,6 +1,6 @@
 %define _rc RC1
 #define	_snap 20051022
-%define	_rel 0.4
+%define	_rel 0.6
 Summary:	A next generation init replacement
 Summary(pl):	Zamiennik inita nastêpnej generacji
 Name:		initng
@@ -47,9 +47,10 @@ statystyki.
 %package devel
 Summary:	Header files for initng
 Group:		Development/Libraries
+Requires:	%{name} = %{version}-%{release}
 
 %description devel
-Header files for initng.
+initng header files and libraries for developing plugins for initng.
 
 %prep
 %setup -q -n %{name}%{!?_snap:-%{version}}%{?_pre:_%{_pre}}%{?_rc}
@@ -89,6 +90,8 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/service_alias
 for a in ngdc nghalt ngreboot ngrestart ngstart ngstatus ngstop ngzap; do
 	ln -sf ngc $RPM_BUILD_ROOT%{_sbindir}/$a
 done
+
+install src/initng_is.h $RPM_BUILD_ROOT%{_includedir}/initng
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -143,5 +146,6 @@ fi
 /%{_lib}/libngeclient.la
 /%{_lib}/libngeclient.so
 /%{_lib}/libinitng.la
+/%{_lib}/libinitng.so
 %{_libdir}/*.la
 %{_includedir}/initng
