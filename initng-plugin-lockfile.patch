@@ -110,13 +110,13 @@ diff -u initng-contrib/plugins/lockfile/initng_lockfile.c initng-0.6.0RC1.plugin
  
  if BUILD_ALSO
      SUBDIRS+=also
---- initng-0.6.0RC1/configure.ac~	2006-03-22 14:31:46.000000000 +0200
-+++ initng-0.6.0RC1/configure.ac	2006-03-22 23:19:55.000000000 +0200
-@@ -405,6 +405,7 @@
+--- initng-0.6.0/configure.ac~	2006-03-27 18:33:46.000000000 +0300
++++ initng-0.6.0/configure.ac	2006-03-27 18:34:19.000000000 +0300
+@@ -399,6 +399,7 @@
  	  plugins/also/Makefile \
  	  plugins/netprobe/Makefile \
  	  plugins/idleprobe/Makefile \
 +	  plugins/lockfile/Makefile \
- 	  doc/Makefile
+ 	  doc/Makefile \
+ 	  tools/Makefile
  	  ])
- AC_OUTPUT
