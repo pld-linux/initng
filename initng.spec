@@ -1,6 +1,6 @@
-%define _rc RC1
+%define _rc %{nil}
 #define	_snap 20051022
-%define	_rel 0.20
+%define	_rel 0.22
 Summary:	A next generation init replacement
 Summary(pl):	Zamiennik inita nastêpnej generacji
 Name:		initng
@@ -8,8 +8,8 @@ Version:	0.6.0
 Release:	%{?_snap:0.%{_snap}.}%{?_pre:0.%{_pre}.}%{_rel}
 License:	GPL v2
 Group:		Base
-Source0:	http://download.initng.thinktux.net/v0.6/%{name}-%{version}%{_rc}.tar.bz2
-# Source0-md5:	4e29074adacaee1285e0f60fdc3a18c3
+Source0:	http://download.initng.thinktux.net/initng/v0.6/%{name}-%{version}.tar.bz2
+# Source0-md5:	49323bbc877e63f426f87c10415d543a
 Patch0:		%{name}-savefile.patch
 Patch1:		%{name}-utmpx.patch
 Patch2:		%{name}-vserver.patch
@@ -23,6 +23,7 @@ BuildRequires:	rpmbuild(macros) >= 1.194
 BuildRequires:	sed >= 4.0
 Requires(post):	/sbin/ldconfig
 Requires(post):	/sbin/telinit
+Conflicts:	initng-ifiles < 0.0.2
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_exec_prefix	/
@@ -128,6 +129,8 @@ fi
 %attr(755,root,root) %{_libdir}/lib*.so
 %attr(755,root,root) %{_sbindir}/initng
 %attr(755,root,root) %{_sbindir}/initng-test_parser
+%attr(755,root,root) %{_sbindir}/initng-segfault
+%attr(755,root,root) %{_sbindir}/killalli5
 %attr(755,root,root) %{_sbindir}/ngc
 %attr(755,root,root) %{_sbindir}/ngdc
 %attr(755,root,root) %{_sbindir}/nghalt
