@@ -10,10 +10,10 @@
 +
 +liblockfile_la_LDFLAGS = @PLUGIN_LDFLAGS@
 +liblockfile_la_LIBADD = @PLUGIN_LIBS@
-diff -u initng-contrib/plugins/lockfile/initng_lockfile.c initng-0.6.0RC1.plugin/plugins/lockfile/initng_lockfile.c
---- initng-contrib/plugins/lockfile/initng_lockfile.c	2006-03-22 22:55:11.000000000 +0200
-+++ initng-0.6.0RC1.plugin/plugins/lockfile/initng_lockfile.c	2006-03-23 00:10:50.000000000 +0200
-@@ -0,0 +1,87 @@
+diff -u initng-0.6.0RC1.plugin/plugins/lockfile/initng_lockfile.c initng-0.6.0/plugins/lockfile/initng_lockfile.c
+--- initng-0.6.0RC1.plugin/plugins/lockfile/initng_lockfile.c	2006-03-23 00:10:50.000000000 +0200
++++ initng-0.6.0/plugins/lockfile/initng_lockfile.c	2006-03-28 20:15:08.000000000 +0300
+@@ -0,0 +1,91 @@
 +/* Initng, a next generation sysvinit replacement.
 + * Copyright (C) 2006 Elan Ruusamäe <glen@pld-linux.org>
 + *
@@ -69,8 +69,12 @@ diff -u initng-contrib/plugins/lockfile/initng_lockfile.c initng-0.6.0RC1.plugin
 +		D_("lockfile path [%s]\n", lockfile);
 +		// service states from initng_is.h
 +		if (IS_UP(service)) {
++			int fd;
 +			D_("service got up\n");
-+			creat(lockfile, S_IREAD);
++			fd = creat(lockfile, 0640);
++			if (fd != -1) {
++				close(fd);
++			}
 +
 +		} else if (IS_DOWN(service)) {
 +			D_("service went down\n");
