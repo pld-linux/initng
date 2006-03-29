@@ -1,6 +1,6 @@
 %define _rc %{nil}
 #define	_snap 20051022
-%define	_rel 0.22
+%define	_rel 0.24
 Summary:	A next generation init replacement
 Summary(pl):	Zamiennik inita nastêpnej generacji
 Name:		initng
@@ -14,6 +14,7 @@ Patch0:		%{name}-savefile.patch
 Patch1:		%{name}-utmpx.patch
 Patch2:		%{name}-vserver.patch
 Patch3:		%{name}-plugin-lockfile.patch
+Patch4:		%{name}-ncurses.patch
 URL:		http://initng.thinktux.net/
 BuildRequires:	/etc/pld-release
 BuildRequires:	autoconf
@@ -61,6 +62,7 @@ initng header files and libraries for developing plugins for initng.
 %patch1 -p1
 %patch2 -p1
 %patch3 -p1
+%patch4 -p1
 
 %build
 %{__libtoolize}
