@@ -1,20 +1,20 @@
-%define _rc %{nil}
+%define _rc RC1
 #define	_snap 20051022
-%define	_rel 0.24
+%define	_rel 0.1
 Summary:	A next generation init replacement
 Summary(pl):	Zamiennik inita nastêpnej generacji
 Name:		initng
-Version:	0.6.0
+Version:	0.6.1
 Release:	%{?_snap:0.%{_snap}.}%{?_pre:0.%{_pre}.}%{_rel}
 License:	GPL v2
 Group:		Base
-Source0:	http://download.initng.thinktux.net/initng/v0.6/%{name}-%{version}.tar.bz2
-# Source0-md5:	49323bbc877e63f426f87c10415d543a
+#Source0:	http://download.initng.thinktux.net/initng/v0.6/%{name}-%{version}.tar.bz2
+Source0:	http://download.initng.org/initng/v0.6/RCs/%{name}-%{version}%{_rc}.tar.bz2
+# Source0-md5:	f0dd3712a5639dc44083840e72f18ec4
 Patch0:		%{name}-savefile.patch
 Patch1:		%{name}-utmpx.patch
 Patch2:		%{name}-vserver.patch
 Patch3:		%{name}-plugin-lockfile.patch
-Patch4:		%{name}-ncurses.patch
 URL:		http://initng.thinktux.net/
 BuildRequires:	/etc/pld-release
 BuildRequires:	autoconf
@@ -57,12 +57,12 @@ Requires:	%{name} = %{version}-%{release}
 initng header files and libraries for developing plugins for initng.
 
 %prep
-%setup -q -n %{name}%{!?_snap:-%{version}}%{?_pre:_%{_pre}}%{?_rc}
+#%%setup -q -n %{name}%{!?_snap:-%{version}}%{?_pre:_%{_pre}}%{?_rc}
+%setup -q -n %{name}-
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
 %patch3 -p1
-%patch4 -p1
 
 %build
 %{__libtoolize}
@@ -128,6 +128,7 @@ fi
 %dir %{_libdir}
 %attr(755,root,root) /%{_lib}/libinitng.so.*.*.*
 %attr(755,root,root) /%{_lib}/libngeclient.so.*.*.*
+%attr(755,root,root) /%{_lib}/libngcclient.so.*.*.*
 %attr(755,root,root) %{_libdir}/lib*.so
 %attr(755,root,root) %{_sbindir}/initng
 %attr(755,root,root) %{_sbindir}/initng-test_parser
@@ -153,6 +154,8 @@ fi
 %defattr(644,root,root,755)
 /%{_lib}/libngeclient.la
 /%{_lib}/libngeclient.so
+/%{_lib}/libngcclient.la
+/%{_lib}/libngcclient.so
 /%{_lib}/libinitng.la
 /%{_lib}/libinitng.so
 %{_libdir}/*.la
