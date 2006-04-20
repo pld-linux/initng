@@ -1,43 +1,42 @@
 --- initng-0.6.0RC1/src/initng_main.c~	2006-03-22 14:29:42.000000000 +0200
 +++ initng-0.6.0RC1/src/initng_main.c	2006-03-22 20:57:02.000000000 +0200
-@@ -152,19 +152,27 @@
+@@ -185,19 +185,27 @@
  
-     /* Mount readonly, youst to be extra sure this is done */
-     mount("/dev/root", "/", NULL, MS_RDONLY + MS_REMOUNT, NULL);
--
--    if (errno == EBUSY)
--    {
--        F_("Failed to remount / ro, EBUSY\n");
--    }
--
--    /* check so that / is mounted read only, by trying to open a file */
--    if ((test = fopen("/initng_write_testfile", "w")) != NULL)
--    {
--        fclose(test);
--        unlink("/initng_write_testfile");
--        F_("/ IS NOT REMOUNTED READ-ONLY, WONT REBOOT/HALT BECAUSE THE FILE SYSTEM CAN BREAK!\n");
--        return;
-+    switch (errno) {
-+        case 0:
-+            break;
+ 	/* Mount readonly, youst to be extra sure this is done */
+ 	mount("/dev/root", "/", NULL, MS_RDONLY + MS_REMOUNT, NULL);
++	switch (errno) {
++	case 0:
++		break;
 +
-+        case EINVAL:
-+        case EPERM:
-+	    /* This fix is there to get clean shutdown of virtual hosts missing CAP_SYS_ADMIN */
-+            break;
++	case EINVAL:
++	case EPERM:
++		/* This fix is there to get clean shutdown of virtual hosts missing CAP_SYS_ADMIN */
++		break;
 +
-+        case EBUSY:
-+        default:
-+            F_("Failed to remount / ro because: %s\n", strerror(errno));
-+
-+			/* check so that / is mounted read only, by trying to open a file */
-+			if ((test = fopen("/initng_write_testfile", "w")) != NULL)
-+			{
-+				fclose(test);
-+				unlink("/initng_write_testfile");
-+				F_("/ IS NOT REMOUNTED READ-ONLY, WONT REBOOT/HALT BECAUSE THE FILE SYSTEM CAN BREAK!\n");
-+				return;
-+			}
-     }
++	case EBUSY:
++	default:
++		F_("Failed to remount / ro because: %s\n", strerror(errno));
  
-     /* Under certain unknown circumstances, calling reboot(RB_POWER_OFF) from
+-	if (errno == EBUSY)
+-	{
+-		F_("Failed to remount / ro, EBUSY\n");
+-	}
+-
+-	/* check so that / is mounted read only, by trying to open a file */
+-	if ((test = fopen("/initng_write_testfile", "w")) != NULL)
+-	{
+-		fclose(test);
+-		unlink("/initng_write_testfile");
+-		F_("/ IS NOT REMOUNTED READ-ONLY, WONT REBOOT/HALT BECAUSE THE FILE SYSTEM CAN BREAK!\n");
+-		return;
++		/* check so that / is mounted read only, by trying to open a file */
++		if ((test = fopen("/initng_write_testfile", "w")) != NULL)
++		{
++			fclose(test);
++			unlink("/initng_write_testfile");
++			F_("/ IS NOT REMOUNTED READ-ONLY, WONT REBOOT/HALT BECAUSE THE FILE SYSTEM CAN BREAK!\n");
++			return;
++		}
+ 	}
+ 
+ 	/* Under certain unknown circumstances, calling reboot(RB_POWER_OFF) from

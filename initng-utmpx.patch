@@ -4,23 +4,23 @@ so skip the check and call utmpname()
 --- initng-0.6.0RC1/plugins/initctl/initng_initctl.c~	2006-03-22 14:29:42.000000000 +0200
 +++ initng-0.6.0RC1/plugins/initctl/initng_initctl.c	2006-03-22 22:14:24.000000000 +0200
 @@ -236,19 +236,7 @@
-     struct utmp utmp;
-     time_t t;
+ 	struct utmp utmp;
+ 	time_t t;
  
--    /*
--     * this is created by bootmisc, if this isn't there we can't set runlevel.
--     */
--    if (access(UTMP_FILE, F_OK) < 0)
--    {
--        F_("/var/run/utmp does not exist, this should be created by bootmisc.i\n");
--        return;
--    }
--    /*
--       TODO, is this a good idea or a bad idea?
--       utmpname("/var/run/utmp");
--     */
+-	/*
+-	 * this is created by bootmisc, if this isn't there we can't set runlevel.
+-	 */
+-	if (access(UTMP_FILE, F_OK) < 0)
+-	{
+-		F_("/var/run/utmp does not exist, this should be created by bootmisc.i\n");
+-		return;
+-	}
+-	/*
+-	   TODO, is this a good idea or a bad idea?
+-	   utmpname("/var/run/utmp");
+-	 */
 -
 +    utmpname(UTMP_FILE);
-     setutent();
-     memset(&utmp, 0, sizeof(utmp));
-     utmp.ut_type = RUN_LVL;
+ 	setutent();
+ 	memset(&utmp, 0, sizeof(utmp));
+ 	utmp.ut_type = RUN_LVL;
