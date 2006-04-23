@@ -1,0 +1,13 @@
+--- initng-0.6.1/CMakeLists.txt~	2006-04-21 19:17:33.000000000 +0300
++++ initng-0.6.1/CMakeLists.txt	2006-04-23 19:18:35.886664079 +0300
+@@ -107,10 +107,6 @@
+ 	ENDIF(SELINUXOLD)
+ ENDIF(SELINUX OR SELINUXOLD) 
+ 
+-IF(COUNT_ME)
+-	EXEC_PROGRAM(${CMAKE_CURRENT_SOURCE_DIR}/count_me.sh)
+-ENDIF(COUNT_ME)
+-
+ CONFIGURE_FILE(
+ 	"${CMAKE_CURRENT_SOURCE_DIR}/cmake_uninstall.cmake.in"
+ 	"${CMAKE_CURRENT_BINARY_DIR}/cmake_uninstall.cmake"
