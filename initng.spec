@@ -4,17 +4,16 @@
 Summary:	A next generation init replacement
 Summary(pl):	Zamiennik inita nastêpnej generacji
 Name:		initng
-Version:	0.6.1
+Version:	0.6.2
 Release:	%{?_snap:0.%{_snap}.}%{?_pre:0.%{_pre}.}%{_rel}
 License:	GPL v2
 Group:		Base
 Source0:	http://download.initng.org/initng/v0.6/%{name}-%{version}.tar.bz2
-# Source0-md5:	a7bfc2d7adbec215fdac666382107f95
+# Source0-md5:	1a89f4a6b4d6f57ca7c0d5426df8f785
 Patch0:		%{name}-savefile.patch
 Patch1:		%{name}-utmpx.patch
 Patch2:		%{name}-vserver.patch
-Patch3:		%{name}-plugin-lockfile.patch
-Patch4:		%{name}-no-spying.patch
+Patch3:		%{name}-no-spying.patch
 URL:		http://www.initng.org/
 BuildRequires:	/etc/pld-release
 BuildRequires:	autoconf
@@ -66,7 +65,6 @@ Pliki nag³ówkowe initng do tworzenia wtyczek dla initng.
 %patch1 -p1
 %patch2 -p1
 %patch3 -p1
-%patch4 -p1
 
 %build
 %{__libtoolize}
