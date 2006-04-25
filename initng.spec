@@ -19,6 +19,7 @@ BuildRequires:	/etc/pld-release
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	libtool
+BuildRequires:	pkgconfig
 BuildRequires:	rpmbuild(macros) >= 1.194
 BuildRequires:	sed >= 4.0
 Requires(post):	/sbin/ldconfig
