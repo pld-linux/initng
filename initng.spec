@@ -18,7 +18,7 @@ Patch4:		%{name}-nokillia.patch
 URL:		http://www.initng.org/
 BuildRequires:	/etc/pld-release
 BuildRequires:	cmake
-BuildRequires:	rpmbuild(macros) >= 1.194
+BuildRequires:	rpmbuild(macros) >= 1.293
 BuildRequires:	sed >= 4.0
 Requires(post):	/sbin/ldconfig
 Requires(post):	/sbin/telinit
@@ -67,11 +67,7 @@ Pliki nag³ówkowe initng do tworzenia wtyczek dla initng.
 %patch4 -p1
 
 %build
-CC="%{__cc}" \
-CXX="%{__cxx}" \
-CFLAGS="%{rpmcflags}" \
-CXXFLAGS="%{rpmcxxflags}" \
-cmake .
+%cmake .
 %{__make}
 
 %install
