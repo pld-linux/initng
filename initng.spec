@@ -4,22 +4,19 @@
 Summary:	A next generation init replacement
 Summary(pl):	Zamiennik inita nastêpnej generacji
 Name:		initng
-Version:	0.6.3
+Version:	0.6.5
 Release:	%{?_snap:0.%{_snap}.}%{?_pre:0.%{_pre}.}%{_rel}
 License:	GPL v2
 Group:		Base
 Source0:	http://download.initng.org/initng/v0.6/%{name}-%{version}.tar.bz2
-# Source0-md5:	cd9f87ea873f798907ffbdd1c0a0632f
+# Source0-md5:	2a5124d7e7b979418e292f18734cf8f1
 Patch0:		%{name}-savefile.patch
 Patch1:		%{name}-utmpx.patch
 Patch2:		%{name}-vserver.patch
 Patch3:		%{name}-no-spying.patch
 URL:		http://www.initng.org/
 BuildRequires:	/etc/pld-release
-BuildRequires:	autoconf
-BuildRequires:	automake
-BuildRequires:	libtool
-BuildRequires:	pkgconfig
+BuildRequires:	cmake
 BuildRequires:	rpmbuild(macros) >= 1.194
 BuildRequires:	sed >= 4.0
 Requires(post):	/sbin/ldconfig
@@ -68,18 +65,7 @@ Pliki nag³ówkowe initng do tworzenia wtyczek dla initng.
 %patch3 -p1
 
 %build
-%{__libtoolize}
-%{__aclocal} -I m4
-%{__autoconf}
-%{__autoheader}
-%{__automake}
-%configure \
-	--%{?debug:en}%{!?debug:dis}able-debug \
-	--sysconfdir=/etc \
-	--libdir=/%{_lib} \
-	--disable-install-init \
-	--disable-count-me
-
+cmake .
 %{__make}
 
 %install
@@ -90,17 +76,12 @@ install -d $RPM_BUILD_ROOT%{_sysconfdir}
 	DESTDIR=$RPM_BUILD_ROOT
 
 # install test_parser program, which will help you check your .i files validity
-libtool --mode=install cp devtool/test_parser $RPM_BUILD_ROOT%{_sbindir}/%{name}-test_parser
+install devtool/test_parser $RPM_BUILD_ROOT%{_sbindir}/%{name}-test_parser
+
 # duplicated
 rm -rf $RPM_BUILD_ROOT%{_docdir}/%{name}
 # should be in sysconfig probably
 rm -f $RPM_BUILD_ROOT%{_libdir}/service_alias
-# bug probably
-for a in ngdc nghalt ngreboot ngrestart ngstart ngstatus ngstop ngzap; do
-	ln -sf ngc $RPM_BUILD_ROOT%{_sbindir}/$a
-done
-
-install src/initng_is.h $RPM_BUILD_ROOT%{_includedir}/initng
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -124,7 +105,7 @@ fi
 
 %files
 %defattr(644,root,root,755)
-%doc README AUTHORS ChangeLog NEWS TEMPLATE_HEADER TODO CODING_STANDARDS
+%doc README AUTHORS ChangeLog NEWS TODO
 %doc doc/initng.txt
 %doc doc/gentoo-chart.png doc/initng-chart.png
 %dir %{_sysconfdir}
@@ -134,7 +115,6 @@ fi
 %attr(755,root,root) /%{_lib}/libngcclient.so.*.*.*
 %attr(755,root,root) %{_libdir}/lib*.so
 %attr(755,root,root) %{_sbindir}/initng
-%attr(755,root,root) %{_sbindir}/itype
 %attr(755,root,root) %{_sbindir}/initng-test_parser
 %attr(755,root,root) %{_sbindir}/initng-segfault
 %attr(755,root,root) %{_sbindir}/killalli5
@@ -147,7 +127,6 @@ fi
 %attr(755,root,root) %{_sbindir}/ngstatus
 %attr(755,root,root) %{_sbindir}/ngstop
 %attr(755,root,root) %{_sbindir}/ngzap
-%attr(755,root,root) %{_sbindir}/ngde
 %attr(755,root,root) %{_sbindir}/nge
 %attr(755,root,root) %{_sbindir}/nge_raw
 %{_mandir}/man8/initng.8*
@@ -156,11 +135,7 @@ fi
 
 %files devel
 %defattr(644,root,root,755)
-/%{_lib}/libngeclient.la
 /%{_lib}/libngeclient.so
-/%{_lib}/libngcclient.la
 /%{_lib}/libngcclient.so
-/%{_lib}/libinitng.la
 /%{_lib}/libinitng.so
-%{_libdir}/*.la
 %{_includedir}/initng
