@@ -2,6 +2,7 @@
 #define	_snap 20051022
 %define	_rel 0.1
 Summary:	A next generation init replacement
+Summary(de):	Init Skripts neuer Generation
 Summary(pl):	Zamiennik inita nastêpnej generacji
 Name:		initng
 Version:	0.6.5
@@ -38,6 +39,13 @@ SysVinit tool. It is designed with speed in mind, doing as much as
 possible asynchronously. In other words: It will boot your unix-system
 much faster, and give you more control and statistics over your
 system.
+
+%description -l de
+Initng ersätzt vollständig das doch schon sehr alte und veralterte
+SysVinit. Es wurde mit dem Hintergedanken der Schnelligkeit
+entwickelt, es macht so viel wie nur möglich parrallel. Mit anderen
+Worten: Es bootet das Unixsystem viel schneller und gibt dir mehr
+Kontrolle und Statistiken über das System.
 
 %description -l pl
 Initng ca³kowicie zastêpuje stare i w wielu miejscach przestarza³e
@@ -89,7 +97,7 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/service_alias
 rm -rf $RPM_BUILD_ROOT
 
 %post
-/sbin/ldconfig
+%{_sbindir}/ldconfig
 if [ "$1" = 1 ]; then
 	%banner -e %{name} <<-EOF
 Remember to add init=%{_sbindir}/initng in your grub or lilo config to use initng.
@@ -101,9 +109,9 @@ Happy testing.
 EOF
 fi
 
-/sbin/telinit u || :
+%{_sbindir}/telinit u || :
 
-%postun	-p /sbin/ldconfig
+%postun -p %{_sbindir}/ldconfig
 
 %files
 %defattr(644,root,root,755)
