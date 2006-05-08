@@ -67,6 +67,10 @@ Pliki nag³ówkowe initng do tworzenia wtyczek dla initng.
 %patch4 -p1
 
 %build
+CC="%{__cc}" \
+CXX="%{__cxx}" \
+CFLAGS="%{rpmcflags}" \
+CXXFLAGS="%{rpmcxxflags}" \
 cmake .
 %{__make}
 
