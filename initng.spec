@@ -14,6 +14,7 @@ Patch0:		%{name}-savefile.patch
 Patch1:		%{name}-utmpx.patch
 Patch2:		%{name}-vserver.patch
 Patch3:		%{name}-no-spying.patch
+Patch4:		%{name}-nokillia.patch
 URL:		http://www.initng.org/
 BuildRequires:	/etc/pld-release
 BuildRequires:	cmake
@@ -63,6 +64,7 @@ Pliki nag³ówkowe initng do tworzenia wtyczek dla initng.
 %patch1 -p1
 %patch2 -p1
 %patch3 -p1
+%patch4 -p1
 
 %build
 cmake .
@@ -117,7 +119,6 @@ fi
 %attr(755,root,root) %{_sbindir}/initng
 %attr(755,root,root) %{_sbindir}/initng-test_parser
 %attr(755,root,root) %{_sbindir}/initng-segfault
-%attr(755,root,root) %{_sbindir}/killalli5
 %attr(755,root,root) %{_sbindir}/ngc
 %attr(755,root,root) %{_sbindir}/ngdc
 %attr(755,root,root) %{_sbindir}/nghalt

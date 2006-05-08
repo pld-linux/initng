@@ -1,0 +1,18 @@
+--- initng-0.6.5/tools/CMakeLists.txt~	2006-04-20 20:05:43.000000000 +0300
++++ initng-0.6.5/tools/CMakeLists.txt	2006-05-09 01:58:16.968068922 +0300
+@@ -1,15 +1,11 @@
+ INCLUDE_DIRECTORIES( ${CMAKE_SOURCE_DIR}/src ${CMAKE_BINARY_DIR}  )
+ 
+-ADD_EXECUTABLE(killalli5 killall5.c)
+-
+-
+ ADD_EXECUTABLE(itype itype.c)
+ 
+ ADD_EXECUTABLE(itool itool.c)
+ TARGET_LINK_LIBRARIES(itool initng)
+ 
+ INSTALL_PROGRAMS(/sbin initng-segfault)
+-INSTALL_TARGETS(/sbin killalli5)
+ 
+ IF (INSTALL_AS_INIT)
+ 	ADD_EXECUTABLE(mountpoint mountpoint.c)
