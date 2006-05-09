@@ -97,7 +97,7 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/service_alias
 rm -rf $RPM_BUILD_ROOT
 
 %post
-%{_sbindir}/ldconfig
+/sbin/ldconfig
 if [ "$1" = 1 ]; then
 	%banner -e %{name} <<-EOF
 Remember to add init=%{_sbindir}/initng in your grub or lilo config to use initng.
@@ -109,9 +109,9 @@ Happy testing.
 EOF
 fi
 
-%{_sbindir}/telinit u || :
+/sbin/telinit u || :
 
-%postun -p %{_sbindir}/ldconfig
+%postun	-p /sbin/ldconfig
 
 %files
 %defattr(644,root,root,755)
