@@ -17,7 +17,6 @@ Patch2:		%{name}-vserver.patch
 Patch3:		%{name}-no-spying.patch
 Patch4:		%{name}-nokillia.patch
 URL:		http://www.initng.org/
-BuildRequires:	/etc/pld-release
 BuildRequires:	cmake
 BuildRequires:	rpmbuild(macros) >= 1.293
 BuildRequires:	sed >= 4.0
