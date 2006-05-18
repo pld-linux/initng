@@ -54,12 +54,16 @@ statystyki.
 
 %package devel
 Summary:	Header files for initng
+Summary(de):	Header Dateien für initng
 Summary(pl):	Pliki nag³ówkowe initng
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 
 %description devel
 initng header files for developing plugins for initng.
+
+%description devel -l de
+Initng header Dateien zur Entwicklung neuer Plugins.
 
 %description devel -l pl
 Pliki nag³ówkowe initng do tworzenia wtyczek dla initng.
