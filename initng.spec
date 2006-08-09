@@ -19,6 +19,7 @@ URL:		http://www.initng.org/
 BuildRequires:	cmake
 BuildRequires:	rpmbuild(macros) >= 1.293
 BuildRequires:	sed >= 4.0
+BuildRequires:	libstdc++-devel
 Requires(post):	/sbin/ldconfig
 Requires(post):	/sbin/telinit
 Conflicts:	initng-ifiles < 0.0.2
