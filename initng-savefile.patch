@@ -1,13 +1,18 @@
---- initng-0.5.4/plugins/reload/initng_reload.c~	2006-02-26 13:44:46.000000000 +0200
-+++ initng-0.5.4/plugins/reload/initng_reload.c	2006-02-26 13:46:05.000000000 +0200
-@@ -42,8 +42,8 @@
+--- initng-0.6.8-orig/plugins/reload/initng_reload.c	2006-06-11 22:37:18.000000000 +0000
++++ initng-0.6.8/plugins/reload/initng_reload.c	2006-10-19 15:46:05.218211750 +0000
+@@ -44,11 +44,11 @@
  
- #include "initng_reload.h"
+ INITNG_PLUGIN_MACRO;
  
--#define SAVE_FILE      VARDIR "/initng_db_backup.v13"
--#define SAVE_FILE_FAKE VARDIR "/initng_db_backup_fake.v13"
-+#define SAVE_FILE      "/var/run/initng_db_backup.v13"
-+#define SAVE_FILE_FAKE "/var/run/initng_db_backup_fake.v13"
+-#define SAVE_FILE      VARDIR "/initng_db_backup.v15"
+-#define SAVE_FILE_FAKE VARDIR "/initng_db_backup_fake.v15"
++#define SAVE_FILE      VARDIR "/run/initng_db_backup.v15"
++#define SAVE_FILE_FAKE VARDIR "/run/initng_db_backup_fake.v15"
+ 
+-#define SAVE_FILE_V13      VARDIR "/initng_db_backup.v13"
+-#define SAVE_FILE_FAKE_v13 VARDIR "/initng_db_backup_fake.v13"
++#define SAVE_FILE_V13      VARDIR "/run/initng_db_backup.v13"
++#define SAVE_FILE_FAKE_v13 VARDIR "/run/initng_db_backup_fake.v13"
  
  static int write_file(const char *filename);
  static int read_file(const char *filename);

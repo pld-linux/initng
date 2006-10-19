@@ -1,9 +1,6 @@
-it is not known to the initng what utmp file library uses,
-so skip the check and call utmpname()
-
---- initng-0.6.0RC1/plugins/initctl/initng_initctl.c~	2006-03-22 14:29:42.000000000 +0200
-+++ initng-0.6.0RC1/plugins/initctl/initng_initctl.c	2006-03-22 22:14:24.000000000 +0200
-@@ -236,19 +236,7 @@
+--- initng-0.6.8-orig/plugins/initctl/initng_initctl.c	2006-06-08 16:32:44.000000000 +0000
++++ initng-0.6.8/plugins/initctl/initng_initctl.c	2006-10-19 15:47:55.449100750 +0000
+@@ -238,18 +238,7 @@
  	struct utmp utmp;
  	time_t t;
  
@@ -19,8 +16,7 @@ so skip the check and call utmpname()
 -	   TODO, is this a good idea or a bad idea?
 -	   utmpname("/var/run/utmp");
 -	 */
--
-+    utmpname(UTMP_FILE);
++	utmpname(UTMP_FILE);
+ 
  	setutent();
  	memset(&utmp, 0, sizeof(utmp));
- 	utmp.ut_type = RUN_LVL;

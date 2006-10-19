@@ -5,12 +5,12 @@ Summary:	A next generation init replacement
 Summary(de):	Init Skripts neuer Generation
 Summary(pl):	Zamiennik inita nastêpnej generacji
 Name:		initng
-Version:	0.6.7
+Version:	0.6.8
 Release:	%{?_snap:0.%{_snap}.}%{?_pre:0.%{_pre}.}%{_rel}
 License:	GPL v2
 Group:		Base
 Source0:	http://download.initng.org/initng/v0.6/%{name}-%{version}.tar.bz2
-# Source0-md5:	8d13fe887623762599a55c4e9640c010
+# Source0-md5:	14a5e9a1083f2bfa560f5c5c6151d09f
 Patch0:		%{name}-savefile.patch
 Patch1:		%{name}-utmpx.patch
 Patch2:		%{name}-vserver.patch
