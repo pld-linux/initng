@@ -2,8 +2,8 @@
 #define	_snap 20051022
 %define	_rel 0.1
 Summary:	A next generation init replacement
-Summary(de):	Init Skripts neuer Generation
-Summary(pl):	Zamiennik inita nastêpnej generacji
+Summary(de.UTF-8):   Init Skripts neuer Generation
+Summary(pl.UTF-8):   Zamiennik inita nastÄ™pnej generacji
 Name:		initng
 Version:	0.6.8
 Release:	%{?_snap:0.%{_snap}.}%{?_pre:0.%{_pre}.}%{_rel}
@@ -38,35 +38,35 @@ possible asynchronously. In other words: It will boot your unix-system
 much faster, and give you more control and statistics over your
 system.
 
-%description -l de
-Initng ersätzt vollständig das doch schon sehr alte und veralterte
+%description -l de.UTF-8
+Initng ersÃ¤tzt vollstÃ¤ndig das doch schon sehr alte und veralterte
 SysVinit. Es wurde mit dem Hintergedanken der Schnelligkeit
-entwickelt, es macht so viel wie nur möglich parrallel. Mit anderen
+entwickelt, es macht so viel wie nur mÃ¶glich parrallel. Mit anderen
 Worten: Es bootet das Unixsystem viel schneller und gibt dir mehr
-Kontrolle und Statistiken über das System.
+Kontrolle und Statistiken Ã¼ber das System.
 
-%description -l pl
-Initng ca³kowicie zastêpuje stare i w wielu miejscach przestarza³e
-narzêdzie SysVinit. Zosta³ zaprojektowany z my¶l± o szybko¶ci, robi
-równolegle tak wiele jak tylko mo¿liwe. Innymi s³owy: umo¿liwia du¿o
-szybszy start systemu uniksowego oraz zapewnia wiêksz± kontrolê i
+%description -l pl.UTF-8
+Initng caÅ‚kowicie zastÄ™puje stare i w wielu miejscach przestarzaÅ‚e
+narzÄ™dzie SysVinit. ZostaÅ‚ zaprojektowany z myÅ›lÄ… o szybkoÅ›ci, robi
+rÃ³wnolegle tak wiele jak tylko moÅ¼liwe. Innymi sÅ‚owy: umoÅ¼liwia duÅ¼o
+szybszy start systemu uniksowego oraz zapewnia wiÄ™kszÄ… kontrolÄ™ i
 statystyki.
 
 %package devel
 Summary:	Header files for initng
-Summary(de):	Header Dateien für initng
-Summary(pl):	Pliki nag³ówkowe initng
+Summary(de.UTF-8):   Header Dateien fÃ¼r initng
+Summary(pl.UTF-8):   Pliki nagÅ‚Ã³wkowe initng
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 
 %description devel
 initng header files for developing plugins for initng.
 
-%description devel -l de
+%description devel -l de.UTF-8
 Initng header Dateien zur Entwicklung neuer Plugins.
 
-%description devel -l pl
-Pliki nag³ówkowe initng do tworzenia wtyczek dla initng.
+%description devel -l pl.UTF-8
+Pliki nagÅ‚Ã³wkowe initng do tworzenia wtyczek dla initng.
 
 %prep
 %setup -q -n %{name}%{!?_snap:-%{version}}%{?_pre:_%{_pre}}%{?_rc}
