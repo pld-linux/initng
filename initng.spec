@@ -2,8 +2,8 @@
 #define	_snap 20051022
 %define	_rel 0.1
 Summary:	A next generation init replacement
-Summary(de.UTF-8):   Init Skripts neuer Generation
-Summary(pl.UTF-8):   Zamiennik inita następnej generacji
+Summary(de.UTF-8):	Init Skripts neuer Generation
+Summary(pl.UTF-8):	Zamiennik inita następnej generacji
 Name:		initng
 Version:	0.6.8
 Release:	%{?_snap:0.%{_snap}.}%{?_pre:0.%{_pre}.}%{_rel}
@@ -54,8 +54,8 @@ statystyki.
 
 %package devel
 Summary:	Header files for initng
-Summary(de.UTF-8):   Header Dateien für initng
-Summary(pl.UTF-8):   Pliki nagłówkowe initng
+Summary(de.UTF-8):	Header Dateien für initng
+Summary(pl.UTF-8):	Pliki nagłówkowe initng
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 
