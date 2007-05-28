@@ -5,12 +5,12 @@ Summary:	A next generation init replacement
 Summary(de.UTF-8):	Init Skripts neuer Generation
 Summary(pl.UTF-8):	Zamiennik inita następnej generacji
 Name:		initng
-Version:	0.6.8
+Version:	0.6.10.1
 Release:	%{?_snap:0.%{_snap}.}%{?_pre:0.%{_pre}.}%{_rel}
 License:	GPL v2
 Group:		Base
 Source0:	http://download.initng.org/initng/v0.6/%{name}-%{version}.tar.bz2
-# Source0-md5:	14a5e9a1083f2bfa560f5c5c6151d09f
+# Source0-md5:	db8c66f51c6ed07f144df0de2d79a2cc
 Patch0:		%{name}-savefile.patch
 Patch1:		%{name}-utmpx.patch
 Patch2:		%{name}-vserver.patch
@@ -76,7 +76,11 @@ Pliki nagłówkowe initng do tworzenia wtyczek dla initng.
 %patch3 -p1
 
 %build
-%cmake .
+%cmake . \
+	-DCOUNT_ME=OFF \
+	-DCMAKE_SKIP_RPATH=ON \
+	-DLIB_INSTALL_DIR=/%{_lib}
+
 %{__make}
 
 %install
@@ -94,6 +98,7 @@ rm -rf $RPM_BUILD_ROOT%{_docdir}/%{name}
 # should be in sysconfig probably
 rm -f $RPM_BUILD_ROOT%{_libdir}/service_alias
 rm -f $RPM_BUILD_ROOT/%{_lib}/libsngeclient.a
+rm -f $RPM_BUILD_ROOT%{_sysconfdir}/killall5-ignore
 
 %clean
 rm -rf $RPM_BUILD_ROOT
