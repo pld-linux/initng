@@ -5,12 +5,12 @@ Summary:	A next generation init replacement
 Summary(de.UTF-8):	Init Skripts neuer Generation
 Summary(pl.UTF-8):	Zamiennik inita następnej generacji
 Name:		initng
-Version:	0.6.10.1
+Version:	0.6.10.2
 Release:	%{?_snap:0.%{_snap}.}%{?_pre:0.%{_pre}.}%{_rel}
 License:	GPL v2
 Group:		Base
 Source0:	http://download.initng.org/initng/v0.6/%{name}-%{version}.tar.bz2
-# Source0-md5:	db8c66f51c6ed07f144df0de2d79a2cc
+# Source0-md5:	51546462fb437f8e342c37d9458c6316
 Patch0:		%{name}-savefile.patch
 Patch1:		%{name}-utmpx.patch
 Patch2:		%{name}-vserver.patch
@@ -128,8 +128,11 @@ fi
 %dir %{_sysconfdir}
 %dir %{_libdir}
 %attr(755,root,root) /%{_lib}/libinitng.so.*.*.*
+%attr(755,root,root) %ghost /%{_lib}/libinitng.so.0
 %attr(755,root,root) /%{_lib}/libngeclient.so.*.*.*
+%attr(755,root,root) %ghost /%{_lib}/libngeclient.so.0
 %attr(755,root,root) /%{_lib}/libngcclient.so.*.*.*
+%attr(755,root,root) %ghost /%{_lib}/libngcclient.so.0
 %attr(755,root,root) %{_libdir}/lib*.so
 %attr(755,root,root) %{_sbindir}/initng
 %attr(755,root,root) %{_sbindir}/initng-test_parser
